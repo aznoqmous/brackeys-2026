@@ -8,8 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://c12swvwtdpxvo" path="res://sprites/peer-legs.png" id="6_choun"]
 [ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="8_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://bt5jkavy5b063" path="res://scenes/furniture.tscn" id="9_85g3d"]
-[ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furniture-2.png" id="9_ya4ey"]
-[ext_resource type="Texture2D" uid="uid://dojtpumlg4e1" path="res://sprites/furniture-3.png" id="10_eb6dy"]
+[ext_resource type="Resource" uid="uid://b17f37vkk17l7" path="res://resources/chair.tres" id="9_eb6dy"]
+[ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furnitures/chair.png" id="9_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://dojtpumlg4e1" path="res://sprites/furnitures/plant.png" id="10_eb6dy"]
+[ext_resource type="Resource" uid="uid://cdlorjnvm638q" path="res://resources/plant.tres" id="11_trceg"]
+[ext_resource type="Resource" uid="uid://8ipdvmhf7qqi" path="res://resources/table.tres" id="13_trceg"]
+[ext_resource type="Texture2D" uid="uid://cufv3l4cvo6s0" path="res://sprites/furnitures/table.png" id="14_a8y0u"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a8y0u"]
 load_path = "res://.godot/imported/FlowMap.png-10a0629210e7ad744f962c460f4ab027.ctex"
@@ -44,21 +48,27 @@ shader_parameter/displacement_size = 5.0
 [node name="Main" type="Node2D" unique_id=513818981]
 script = ExtResource("1_o5qli")
 tile_size = Vector2(162, 78)
-room_size = Vector2i(5, 5)
-tile_offset = Vector2(-47, -47)
+room_size = Vector2i(4, 4)
+tile_offset = Vector2(0, 39)
 
 [node name="Container" type="Node2D" parent="." unique_id=2058291274]
-position = Vector2(575, 370)
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1923788347]
+zoom = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="ObjectsContainer" type="Node2D" parent="." unique_id=1191763259]
 y_sort_enabled = true
+metadata/_edit_lock_ = true
 
 [node name="Player" type="Node2D" parent="ObjectsContainer" unique_id=1162949394]
-position = Vector2(370, 353)
+position = Vector2(-160, 76)
 script = ExtResource("2_jyhfs")
+metadata/_edit_group_ = true
 
 [node name="SpriteContainer" type="Node2D" parent="ObjectsContainer/Player" unique_id=2044068348]
-position = Vector2(9, -74)
+position = Vector2(7, -80)
 
 [node name="Shadow" type="Sprite2D" parent="ObjectsContainer/Player/SpriteContainer" unique_id=1819118324]
 modulate = Color(0, 0, 0, 0.33333334)
@@ -78,17 +88,32 @@ texture = ExtResource("5_85g3d")
 material = SubResource("ShaderMaterial_muem4")
 texture = ExtResource("6_choun")
 
-[node name="Furniture" parent="ObjectsContainer" unique_id=2049549159 instance=ExtResource("9_85g3d")]
-position = Vector2(284, 398)
+[node name="FurnituresContainer" type="Node2D" parent="ObjectsContainer" unique_id=2135184305]
+y_sort_enabled = true
 
-[node name="Furniture2" parent="ObjectsContainer" unique_id=683898165 instance=ExtResource("9_85g3d")]
-position = Vector2(695, 360)
+[node name="chair" parent="ObjectsContainer/FurnituresContainer" unique_id=2049549159 instance=ExtResource("9_85g3d")]
+position = Vector2(87, 195)
+resource = ExtResource("9_eb6dy")
 sprite = ExtResource("9_ya4ey")
 
-[node name="Furniture3" parent="ObjectsContainer" unique_id=2027736729 instance=ExtResource("9_85g3d")]
-position = Vector2(527, 280)
+[node name="chair2" parent="ObjectsContainer/FurnituresContainer" unique_id=383685410 instance=ExtResource("9_85g3d")]
+position = Vector2(83, 39)
+resource = ExtResource("9_eb6dy")
 sprite = ExtResource("9_ya4ey")
 
-[node name="Furniture4" parent="ObjectsContainer" unique_id=734935164 instance=ExtResource("9_85g3d")]
-position = Vector2(373, 467)
+[node name="plant" parent="ObjectsContainer/FurnituresContainer" unique_id=683898165 instance=ExtResource("9_85g3d")]
+position = Vector2(166, 78)
+resource = ExtResource("11_trceg")
 sprite = ExtResource("10_eb6dy")
+
+[node name="plant2" parent="ObjectsContainer/FurnituresContainer" unique_id=2027736729 instance=ExtResource("9_85g3d")]
+position = Vector2(249, 117)
+resource = ExtResource("11_trceg")
+sprite = ExtResource("10_eb6dy")
+
+[node name="shelf" parent="ObjectsContainer/FurnituresContainer" unique_id=734935164 instance=ExtResource("9_85g3d")]
+
+[node name="table" parent="ObjectsContainer/FurnituresContainer" unique_id=842034477 instance=ExtResource("9_85g3d")]
+position = Vector2(-243, 117)
+resource = ExtResource("13_trceg")
+sprite = ExtResource("14_a8y0u")

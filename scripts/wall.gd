@@ -8,3 +8,4 @@ class_name Wall
 
 func _ready() -> void:
 	sprite_2d.modulate = left_color if scale.x > 0 else right_color
+	sprite_2d.material.set("shader_parameter/color", left_color if scale.x > 0 else right_color)

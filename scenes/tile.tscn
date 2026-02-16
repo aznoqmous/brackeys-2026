@@ -3,6 +3,18 @@
 [ext_resource type="Script" uid="uid://chii2duhqahk4" path="res://scripts/tile.gd" id="1_jy7pm"]
 [ext_resource type="Texture2D" uid="uid://dfgkgncyb3my2" path="res://sprites/tile-inner.png" id="1_ywnoi"]
 [ext_resource type="Texture2D" uid="uid://bfbth4ct3qu6i" path="res://sprites/tile-selection.png" id="2_jy7pm"]
+[ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="3_6p3j2"]
+[ext_resource type="Texture2D" uid="uid://crj472xqe4c1s" path="res://sprites/FlowMap.png" id="5_gtpg2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a2bny"]
+resource_local_to_scene = true
+shader = ExtResource("3_6p3j2")
+shader_parameter/texture_albedo = ExtResource("2_jy7pm")
+shader_parameter/texture_flow_map = ExtResource("5_gtpg2")
+shader_parameter/color = Color(0.3647059, 0.3647059, 0.3647059, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 1.0
+shader_parameter/displacement_size = 5.0
 
 [node name="Tile" type="Area2D" unique_id=1876085883 node_paths=PackedStringArray("inner", "selection")]
 script = ExtResource("1_jy7pm")
@@ -12,13 +24,16 @@ selection = NodePath("Selection")
 [node name="Inner" type="Sprite2D" parent="." unique_id=1383297949]
 modulate = Color(0.5931336, 0.59313357, 0.59313357, 1)
 texture_filter = 1
+scale = Vector2(0.9, 0.9)
 texture = ExtResource("1_ywnoi")
 
 [node name="Selection" type="Sprite2D" parent="." unique_id=1349078548]
 modulate = Color(0.36282963, 0.36282945, 0.36282927, 1)
 texture_filter = 1
+material = SubResource("ShaderMaterial_a2bny")
 texture = ExtResource("2_jy7pm")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1403608794]
+visible = false
 position = Vector2(0, -39)
 polygon = PackedVector2Array(82, 39, -1, 78, -79, 39, 0, 0)

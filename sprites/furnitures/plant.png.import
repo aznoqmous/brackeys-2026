@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpst3jprjdgnt"
-path="res://.godot/imported/furniture-2.png-ab4d7d5f0bd3de7dd204f3a139423404.ctex"
+uid="uid://dojtpumlg4e1"
+path="res://.godot/imported/plant.png-96e49a7ebc3c16af07e3cf6007ecabae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/furniture-2.png"
-dest_files=["res://.godot/imported/furniture-2.png-ab4d7d5f0bd3de7dd204f3a139423404.ctex"]
+source_file="res://sprites/furnitures/plant.png"
+dest_files=["res://.godot/imported/plant.png-96e49a7ebc3c16af07e3cf6007ecabae.ctex"]
 
 [params]
 

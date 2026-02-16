@@ -2,6 +2,40 @@
 
 [ext_resource type="Script" uid="uid://b26grp0we1dp" path="res://scripts/wall.gd" id="1_2ktk7"]
 [ext_resource type="Texture2D" uid="uid://brqbu4g34dypl" path="res://sprites/wall.png" id="1_wykyb"]
+[ext_resource type="Texture2D" uid="uid://crj472xqe4c1s" path="res://sprites/FlowMap.png" id="3_e00m8"]
+
+[sub_resource type="Shader" id="Shader_tdtm6"]
+code = "shader_type canvas_item;
+uniform sampler2D texture_albedo;
+uniform sampler2D texture_flow_map;
+uniform vec3 color: source_color = vec3(1.0);
+uniform int displacement_steps = 4;
+uniform float displacement_power = 2.0;
+uniform float displacement_size = 5.0;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	
+	// Called for every pixel the material is visible on.
+	vec3 displacement = texture(texture_flow_map, (UV + SCREEN_UV) / displacement_size + vec2(float(int(TIME * 8.0) % displacement_steps) / 10.0)).xyz;
+	vec2 pos = UV + displacement.xy * 0.02 * displacement_power;
+	vec4 tex = texture(texture_albedo, pos);
+    COLOR = vec4(tex.rgb * color, tex.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5nbe"]
+resource_local_to_scene = true
+shader = SubResource("Shader_tdtm6")
+shader_parameter/texture_albedo = ExtResource("1_wykyb")
+shader_parameter/texture_flow_map = ExtResource("3_e00m8")
+shader_parameter/color = Color(0.3647059, 0.3647059, 0.3647059, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 0.5
+shader_parameter/displacement_size = 5.0
 
 [node name="Wall" type="Node2D" unique_id=934303356]
 z_index = -1
@@ -11,5 +45,6 @@ right_color = Color(0.3647059, 0.3647059, 0.3647059, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1582557164]
 modulate = Color(0.5921569, 0.5921569, 0.5921569, 1)
+material = SubResource("ShaderMaterial_l5nbe")
 position = Vector2(-40, -127)
 texture = ExtResource("1_wykyb")

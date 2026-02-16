@@ -1,26 +1,32 @@
 [gd_scene format=3 uid="uid://bt5jkavy5b063"]
 
 [ext_resource type="Script" uid="uid://bpqrv8xvrktgt" path="res://scripts/furniture.gd" id="1_k0xlv"]
-[ext_resource type="Texture2D" uid="uid://th3udd0g8u08" path="res://sprites/furniture-1.png" id="2_dh8sm"]
+[ext_resource type="Texture2D" uid="uid://th3udd0g8u08" path="res://sprites/furnitures/shelf.png" id="2_dh8sm"]
+[ext_resource type="Resource" uid="uid://ggspwnr42ukk" path="res://resources/shelf.tres" id="2_upk6m"]
 [ext_resource type="Texture2D" uid="uid://dalfyro5mto6e" path="res://sprites/shadow.png" id="3_upk6m"]
 [ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="4_sugg3"]
 [ext_resource type="Texture2D" uid="uid://crj472xqe4c1s" path="res://sprites/FlowMap.png" id="5_161hf"]
-[ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furniture-2.png" id="5_dh8sm"]
+[ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furnitures/chair.png" id="5_dh8sm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eb6dy"]
 resource_local_to_scene = true
 shader = ExtResource("4_sugg3")
-shader_parameter/texture_albedo = ExtResource("5_dh8sm")
+shader_parameter/texture_albedo = ExtResource("2_dh8sm")
 shader_parameter/texture_flow_map = ExtResource("5_161hf")
-shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/color = Color(0.61745477, 0.61745477, 0.6174547, 1)
 shader_parameter/displacement_steps = 4
 shader_parameter/displacement_power = 0.5
 shader_parameter/displacement_size = 5.0
 
-[node name="Furniture" type="Node2D" unique_id=2049549159 node_paths=PackedStringArray("sprite_2d")]
+[node name="Furniture" type="Node2D" unique_id=2049549159 node_paths=PackedStringArray("title_label", "description_label", "sprite_2d")]
 script = ExtResource("1_k0xlv")
+title_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/TitleLabel")
+description_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/DescriptionLabel")
+resource = ExtResource("2_upk6m")
 sprite_2d = NodePath("Sprite2D")
 sprite = ExtResource("2_dh8sm")
+selected_color = Color(1, 1, 1, 1)
+default_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
 
 [node name="ShadowSprite" type="Sprite2D" parent="." unique_id=2123281686]
 modulate = Color(0, 0, 0, 0.33333334)
@@ -31,4 +37,43 @@ texture = ExtResource("3_upk6m")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1947578003]
 material = SubResource("ShaderMaterial_eb6dy")
 position = Vector2(14, -76)
-texture = ExtResource("2_dh8sm")
+texture = ExtResource("5_dh8sm")
+
+[node name="DescriptionControl" type="Control" parent="." unique_id=2099002806]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -74.0
+offset_top = -229.0
+offset_right = 74.0
+offset_bottom = -126.0
+
+[node name="MarginContainer" type="MarginContainer" parent="DescriptionControl" unique_id=119108682]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -25.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="DescriptionControl/MarginContainer" unique_id=1292333838]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DescriptionControl/MarginContainer" unique_id=2006909815]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="DescriptionControl/MarginContainer/VBoxContainer" unique_id=2013552156]
+custom_minimum_size = Vector2(91.565, 0)
+layout_mode = 2
+text = "Shelf"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="DescriptionLabel" type="Label" parent="DescriptionControl/MarginContainer/VBoxContainer" unique_id=1467312811]
+custom_minimum_size = Vector2(91.565, 0)
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3

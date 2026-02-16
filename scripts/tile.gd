@@ -9,6 +9,12 @@ var default_color: Color
 var hovered := false
 var grid_position : Vector2i
 
+var current_furniture: Furniture
+var current_player: Player
+var is_occupied: bool :
+	get: return current_player or current_furniture
+var is_selected:= false
+
 func _ready() -> void:
 	default_color = inner.modulate
 	mouse_entered.connect(func():
