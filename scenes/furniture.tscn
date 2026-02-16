@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bt5jkavy5b063"]
+
+[ext_resource type="Script" uid="uid://bpqrv8xvrktgt" path="res://scripts/furniture.gd" id="1_k0xlv"]
+[ext_resource type="Texture2D" uid="uid://th3udd0g8u08" path="res://sprites/furniture-1.png" id="2_dh8sm"]
+[ext_resource type="Texture2D" uid="uid://dalfyro5mto6e" path="res://sprites/shadow.png" id="3_upk6m"]
+[ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="4_sugg3"]
+[ext_resource type="Texture2D" uid="uid://crj472xqe4c1s" path="res://sprites/FlowMap.png" id="5_161hf"]
+[ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furniture-2.png" id="5_dh8sm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eb6dy"]
+resource_local_to_scene = true
+shader = ExtResource("4_sugg3")
+shader_parameter/texture_albedo = ExtResource("5_dh8sm")
+shader_parameter/texture_flow_map = ExtResource("5_161hf")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 0.5
+shader_parameter/displacement_size = 5.0
+
+[node name="Furniture" type="Node2D" unique_id=2049549159 node_paths=PackedStringArray("sprite_2d")]
+script = ExtResource("1_k0xlv")
+sprite_2d = NodePath("Sprite2D")
+sprite = ExtResource("2_dh8sm")
+
+[node name="ShadowSprite" type="Sprite2D" parent="." unique_id=2123281686]
+modulate = Color(0, 0, 0, 0.33333334)
+position = Vector2(14, -105)
+scale = Vector2(1.33, 1.33)
+texture = ExtResource("3_upk6m")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1947578003]
+material = SubResource("ShaderMaterial_eb6dy")
+position = Vector2(14, -76)
+texture = ExtResource("2_dh8sm")

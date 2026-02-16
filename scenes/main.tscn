@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://ied1f8r2pef8"]
+
+[ext_resource type="Script" uid="uid://bvb23f5st7o0l" path="res://main.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://dwh07xu4oiiso" path="res://scripts/player.gd" id="2_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://dalfyro5mto6e" path="res://sprites/shadow.png" id="3_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://vitbrvm5oa7f" path="res://sprites/peer-face-color.png" id="4_tipki"]
+[ext_resource type="Texture2D" uid="uid://cd07boor00b77" path="res://sprites/peer-face.png" id="5_85g3d"]
+[ext_resource type="Texture2D" uid="uid://c12swvwtdpxvo" path="res://sprites/peer-legs.png" id="6_choun"]
+[ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="8_ya4ey"]
+[ext_resource type="PackedScene" uid="uid://bt5jkavy5b063" path="res://scenes/furniture.tscn" id="9_85g3d"]
+[ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furniture-2.png" id="9_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://dojtpumlg4e1" path="res://sprites/furniture-3.png" id="10_eb6dy"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a8y0u"]
+load_path = "res://.godot/imported/FlowMap.png-10a0629210e7ad744f962c460f4ab027.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jkv2x"]
+shader = ExtResource("8_ya4ey")
+shader_parameter/texture_albedo = ExtResource("4_tipki")
+shader_parameter/texture_flow_map = SubResource("CompressedTexture2D_a8y0u")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 0.5
+shader_parameter/displacement_size = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbj1t"]
+shader = ExtResource("8_ya4ey")
+shader_parameter/texture_albedo = ExtResource("5_85g3d")
+shader_parameter/texture_flow_map = SubResource("CompressedTexture2D_a8y0u")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 0.5
+shader_parameter/displacement_size = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_muem4"]
+shader = ExtResource("8_ya4ey")
+shader_parameter/texture_albedo = ExtResource("6_choun")
+shader_parameter/texture_flow_map = SubResource("CompressedTexture2D_a8y0u")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 0.5
+shader_parameter/displacement_size = 5.0
+
+[node name="Main" type="Node2D" unique_id=513818981]
+script = ExtResource("1_o5qli")
+tile_size = Vector2(162, 78)
+room_size = Vector2i(5, 5)
+tile_offset = Vector2(-47, -47)
+
+[node name="Container" type="Node2D" parent="." unique_id=2058291274]
+position = Vector2(575, 370)
+
+[node name="ObjectsContainer" type="Node2D" parent="." unique_id=1191763259]
+y_sort_enabled = true
+
+[node name="Player" type="Node2D" parent="ObjectsContainer" unique_id=1162949394]
+position = Vector2(370, 353)
+script = ExtResource("2_jyhfs")
+
+[node name="SpriteContainer" type="Node2D" parent="ObjectsContainer/Player" unique_id=2044068348]
+position = Vector2(9, -74)
+
+[node name="Shadow" type="Sprite2D" parent="ObjectsContainer/Player/SpriteContainer" unique_id=1819118324]
+modulate = Color(0, 0, 0, 0.33333334)
+texture = ExtResource("3_o6xl0")
+
+[node name="Face" type="Node2D" parent="ObjectsContainer/Player/SpriteContainer" unique_id=123375336]
+
+[node name="Body2" type="Sprite2D" parent="ObjectsContainer/Player/SpriteContainer/Face" unique_id=651423378]
+material = SubResource("ShaderMaterial_jkv2x")
+texture = ExtResource("4_tipki")
+
+[node name="Body" type="Sprite2D" parent="ObjectsContainer/Player/SpriteContainer/Face" unique_id=1401343314]
+material = SubResource("ShaderMaterial_jbj1t")
+texture = ExtResource("5_85g3d")
+
+[node name="Legs" type="Sprite2D" parent="ObjectsContainer/Player/SpriteContainer" unique_id=1148004232]
+material = SubResource("ShaderMaterial_muem4")
+texture = ExtResource("6_choun")
+
+[node name="Furniture" parent="ObjectsContainer" unique_id=2049549159 instance=ExtResource("9_85g3d")]
+position = Vector2(284, 398)
+
+[node name="Furniture2" parent="ObjectsContainer" unique_id=683898165 instance=ExtResource("9_85g3d")]
+position = Vector2(695, 360)
+sprite = ExtResource("9_ya4ey")
+
+[node name="Furniture3" parent="ObjectsContainer" unique_id=2027736729 instance=ExtResource("9_85g3d")]
+position = Vector2(527, 280)
+sprite = ExtResource("9_ya4ey")
+
+[node name="Furniture4" parent="ObjectsContainer" unique_id=734935164 instance=ExtResource("9_85g3d")]
+position = Vector2(373, 467)
+sprite = ExtResource("10_eb6dy")

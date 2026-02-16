@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b2abdh8bwie2d"]
+
+[ext_resource type="Script" uid="uid://b26grp0we1dp" path="res://scripts/wall.gd" id="1_2ktk7"]
+[ext_resource type="Texture2D" uid="uid://brqbu4g34dypl" path="res://sprites/wall.png" id="1_wykyb"]
+
+[node name="Wall" type="Node2D" unique_id=934303356]
+z_index = -1
+script = ExtResource("1_2ktk7")
+left_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+right_color = Color(0.3647059, 0.3647059, 0.3647059, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1582557164]
+modulate = Color(0.5921569, 0.5921569, 0.5921569, 1)
+position = Vector2(-40, -127)
+texture = ExtResource("1_wykyb")
