@@ -4,7 +4,101 @@
 [ext_resource type="Texture2D" uid="uid://dfgkgncyb3my2" path="res://sprites/tile-inner.png" id="1_ywnoi"]
 [ext_resource type="Texture2D" uid="uid://bfbth4ct3qu6i" path="res://sprites/tile-selection.png" id="2_jy7pm"]
 [ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="3_6p3j2"]
+[ext_resource type="Texture2D" uid="uid://dijrvnekugr2w" path="res://sprites/door-opened.png" id="3_a2bny"]
+[ext_resource type="Texture2D" uid="uid://c840wl7dp7wet" path="res://sprites/door-closed.png" id="4_284l3"]
+[ext_resource type="Texture2D" uid="uid://ds20iwyl01gnx" path="res://sprites/window-light.png" id="4_j8k5k"]
+[ext_resource type="Texture2D" uid="uid://brqbu4g34dypl" path="res://sprites/wall.png" id="5_284l3"]
 [ext_resource type="Texture2D" uid="uid://crj472xqe4c1s" path="res://sprites/FlowMap.png" id="5_gtpg2"]
+[ext_resource type="Texture2D" uid="uid://c66gb7elmv1hg" path="res://sprites/window.png" id="7_j3iir"]
+
+[sub_resource type="Shader" id="Shader_tdtm6"]
+code = "shader_type canvas_item;
+uniform sampler2D texture_albedo;
+uniform sampler2D texture_flow_map;
+uniform vec4 color: source_color = vec4(1.0);
+uniform int displacement_steps = 4;
+uniform float displacement_power = 2.0;
+uniform float displacement_size = 5.0;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	
+	// Called for every pixel the material is visible on.
+	vec3 displacement = texture(texture_flow_map, (UV + SCREEN_UV) / displacement_size + vec2(float(int(TIME * 8.0) % displacement_steps) / 10.0)).xyz;
+	vec2 pos = UV + displacement.xy * 0.02 * displacement_power;
+	vec4 tex = texture(texture_albedo, pos);
+    COLOR = vec4(tex.rgb * color.rgb, tex.a * color.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j3iir"]
+resource_local_to_scene = true
+shader = SubResource("Shader_tdtm6")
+shader_parameter/texture_albedo = ExtResource("5_284l3")
+shader_parameter/texture_flow_map = ExtResource("5_gtpg2")
+shader_parameter/color = Color(0.4974739, 0.4974736, 0.49747366, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 0.5
+shader_parameter/displacement_size = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jm5cm"]
+resource_local_to_scene = true
+shader = SubResource("Shader_tdtm6")
+shader_parameter/texture_albedo = ExtResource("5_284l3")
+shader_parameter/texture_flow_map = ExtResource("5_gtpg2")
+shader_parameter/color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 0.5
+shader_parameter/displacement_size = 5.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w8vld"]
+load_path = "res://.godot/imported/FlowMap.png-10a0629210e7ad744f962c460f4ab027.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jdkp0"]
+resource_local_to_scene = true
+shader = SubResource("Shader_tdtm6")
+shader_parameter/texture_albedo = ExtResource("4_j8k5k")
+shader_parameter/texture_flow_map = SubResource("CompressedTexture2D_w8vld")
+shader_parameter/color = Color(1, 1, 1, 0.19607843)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 1.5
+shader_parameter/displacement_size = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vknvr"]
+resource_local_to_scene = true
+shader = SubResource("Shader_tdtm6")
+shader_parameter/texture_albedo = ExtResource("7_j3iir")
+shader_parameter/texture_flow_map = ExtResource("5_gtpg2")
+shader_parameter/color = Color(0.3647059, 0.3647059, 0.3647059, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 1.5
+shader_parameter/displacement_size = 5.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j3iir"]
+load_path = "res://.godot/imported/FlowMap.png-10a0629210e7ad744f962c460f4ab027.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j8k5k"]
+resource_local_to_scene = true
+shader = ExtResource("3_6p3j2")
+shader_parameter/texture_albedo = ExtResource("3_a2bny")
+shader_parameter/texture_flow_map = SubResource("CompressedTexture2D_j3iir")
+shader_parameter/color = Color(0.3647059, 0.3647059, 0.3647059, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 1.0
+shader_parameter/displacement_size = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w8vld"]
+resource_local_to_scene = true
+shader = ExtResource("3_6p3j2")
+shader_parameter/texture_albedo = ExtResource("4_284l3")
+shader_parameter/texture_flow_map = SubResource("CompressedTexture2D_j3iir")
+shader_parameter/color = Color(0.3647059, 0.3647059, 0.3647059, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 1.0
+shader_parameter/displacement_size = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a2bny"]
 resource_local_to_scene = true
@@ -16,24 +110,97 @@ shader_parameter/displacement_steps = 4
 shader_parameter/displacement_power = 1.0
 shader_parameter/displacement_size = 5.0
 
-[node name="Tile" type="Area2D" unique_id=1876085883 node_paths=PackedStringArray("inner", "selection")]
+[sub_resource type="LabelSettings" id="LabelSettings_j8k5k"]
+font_size = 32
+
+[node name="Tile" type="Area2D" unique_id=1876085883 node_paths=PackedStringArray("inner_sprite", "selection_sprite", "debug_label")]
 script = ExtResource("1_jy7pm")
-inner = NodePath("Inner")
-selection = NodePath("Selection")
+inner_sprite = NodePath("Tile/Inner")
+selection_sprite = NodePath("Tile/Selection")
+debug_label = NodePath("DebugLabel")
 
-[node name="Inner" type="Sprite2D" parent="." unique_id=1383297949]
-modulate = Color(0.5931336, 0.59313357, 0.59313357, 1)
-texture_filter = 1
-scale = Vector2(0.9, 0.9)
-texture = ExtResource("1_ywnoi")
+[node name="Wall" type="Node2D" parent="." unique_id=979818093]
+z_index = -1
+position = Vector2(1, 0)
 
-[node name="Selection" type="Sprite2D" parent="." unique_id=1349078548]
-modulate = Color(0.36282963, 0.36282945, 0.36282927, 1)
-texture_filter = 1
-material = SubResource("ShaderMaterial_a2bny")
-texture = ExtResource("2_jy7pm")
+[node name="WallRight" type="Sprite2D" parent="Wall" unique_id=891482063]
+visible = false
+modulate = Color(0.5921569, 0.5921569, 0.5921569, 1)
+material = SubResource("ShaderMaterial_j3iir")
+position = Vector2(38, -127)
+scale = Vector2(-1, 1)
+texture = ExtResource("5_284l3")
+
+[node name="WallLeft" type="Sprite2D" parent="Wall" unique_id=1825425946]
+visible = false
+modulate = Color(0.5921569, 0.5921569, 0.5921569, 1)
+material = SubResource("ShaderMaterial_jm5cm")
+position = Vector2(-46, -127)
+texture = ExtResource("5_284l3")
+
+[node name="Window" type="Node2D" parent="." unique_id=721375181]
+visible = false
+
+[node name="Light" type="Sprite2D" parent="Window" unique_id=979087657]
+modulate = Color(1, 1, 1, 0.18039216)
+material = SubResource("ShaderMaterial_jdkp0")
+position = Vector2(-7, -71)
+texture = ExtResource("4_j8k5k")
+
+[node name="Window2" type="Sprite2D" parent="Window" unique_id=1534122368]
+modulate = Color(0.5921569, 0.5921569, 0.5921569, 1)
+material = SubResource("ShaderMaterial_vknvr")
+position = Vector2(-45, -125)
+texture = ExtResource("7_j3iir")
+
+[node name="Door" type="Node2D" parent="." unique_id=197657739]
+visible = false
+
+[node name="DoorOpened" type="Sprite2D" parent="Door" unique_id=879222282]
+visible = false
+material = SubResource("ShaderMaterial_j8k5k")
+position = Vector2(-47, -74)
+texture = ExtResource("3_a2bny")
+
+[node name="DoorClosed" type="Sprite2D" parent="Door" unique_id=414865400]
+material = SubResource("ShaderMaterial_w8vld")
+position = Vector2(-47, -71)
+texture = ExtResource("4_284l3")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1403608794]
 visible = false
 position = Vector2(0, -39)
 polygon = PackedVector2Array(82, 39, -1, 78, -79, 39, 0, 0)
+
+[node name="Tile" type="Node2D" parent="." unique_id=1939297130]
+z_index = -1
+
+[node name="Inner" type="Sprite2D" parent="Tile" unique_id=1383297949]
+modulate = Color(0.5931336, 0.59313357, 0.59313357, 1)
+texture_filter = 1
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("1_ywnoi")
+
+[node name="Selection" type="Sprite2D" parent="Tile" unique_id=1349078548]
+modulate = Color(0.36282963, 0.36282945, 0.36282927, 1)
+texture_filter = 1
+material = SubResource("ShaderMaterial_a2bny")
+texture = ExtResource("2_jy7pm")
+
+[node name="DebugLabel" type="Label" parent="." unique_id=1242332139]
+visible = false
+z_index = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "0,2"
+label_settings = SubResource("LabelSettings_j8k5k")
+horizontal_alignment = 1

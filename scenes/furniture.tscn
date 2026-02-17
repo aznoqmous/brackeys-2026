@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="4_sugg3"]
 [ext_resource type="Texture2D" uid="uid://crj472xqe4c1s" path="res://sprites/FlowMap.png" id="5_161hf"]
 [ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furnitures/chair.png" id="5_dh8sm"]
+[ext_resource type="Texture2D" uid="uid://d1qmmjk31qimu" path="res://sprites/shadow-2.png" id="5_sugg3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eb6dy"]
 resource_local_to_scene = true
@@ -18,23 +19,36 @@ shader_parameter/displacement_steps = 4
 shader_parameter/displacement_power = 0.5
 shader_parameter/displacement_size = 5.0
 
-[node name="Furniture" type="Node2D" unique_id=2049549159 node_paths=PackedStringArray("title_label", "description_label", "sprite_2d")]
+[node name="Furniture" type="Node2D" unique_id=2049549159 node_paths=PackedStringArray("title_label", "description_label", "sprites_container", "sprite_2d", "shadow_sprite", "shadow_sprite_2")]
 script = ExtResource("1_k0xlv")
 title_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/TitleLabel")
 description_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/DescriptionLabel")
 resource = ExtResource("2_upk6m")
-sprite_2d = NodePath("Sprite2D")
+sprites_container = NodePath("SpritesContainer")
+sprite_2d = NodePath("SpritesContainer/Sprite2D")
 sprite = ExtResource("2_dh8sm")
+shadow_sprite = NodePath("SpritesContainer/ShadowSprite")
+shadow_sprite_2 = NodePath("SpritesContainer/ShadowSprite2")
 selected_color = Color(1, 1, 1, 1)
 default_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
+valid_color = Color(1, 1, 1, 1)
 
-[node name="ShadowSprite" type="Sprite2D" parent="." unique_id=2123281686]
+[node name="SpritesContainer" type="Node2D" parent="." unique_id=755309763]
+
+[node name="ShadowSprite" type="Sprite2D" parent="SpritesContainer" unique_id=2123281686]
+visible = false
 modulate = Color(0, 0, 0, 0.33333334)
 position = Vector2(14, -105)
 scale = Vector2(1.33, 1.33)
 texture = ExtResource("3_upk6m")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1947578003]
+[node name="ShadowSprite2" type="Sprite2D" parent="SpritesContainer" unique_id=680681618]
+visible = false
+modulate = Color(0, 0, 0, 0.33333334)
+position = Vector2(42, 23)
+texture = ExtResource("5_sugg3")
+
+[node name="Sprite2D" type="Sprite2D" parent="SpritesContainer" unique_id=1947578003]
 material = SubResource("ShaderMaterial_eb6dy")
 position = Vector2(14, -76)
 texture = ExtResource("5_dh8sm")

@@ -32,7 +32,7 @@ resource_local_to_scene = true
 shader = SubResource("Shader_tdtm6")
 shader_parameter/texture_albedo = ExtResource("1_wykyb")
 shader_parameter/texture_flow_map = ExtResource("3_e00m8")
-shader_parameter/color = Color(0.3647059, 0.3647059, 0.3647059, 1)
+shader_parameter/color = Color(0.5921569, 0.5921569, 0.5921569, 1)
 shader_parameter/displacement_steps = 4
 shader_parameter/displacement_power = 0.5
 shader_parameter/displacement_size = 5.0
@@ -41,7 +41,7 @@ shader_parameter/displacement_size = 5.0
 z_index = -1
 script = ExtResource("1_2ktk7")
 left_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
-right_color = Color(0.3647059, 0.3647059, 0.3647059, 1)
+right_color = Color(0.52510166, 0.52510124, 0.5251013, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1582557164]
 modulate = Color(0.5921569, 0.5921569, 0.5921569, 1)
