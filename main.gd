@@ -118,9 +118,22 @@ func edit_click_tile(tile: Tile):
 	if selected_tile:
 		if selected_tile.current_furniture:
 			selected_tile.is_selected = false
-			if selected_tile.current_furniture: selected_tile.current_furniture.update_state()
-			selected_tile.current_furniture.position = tile.position
+			selected_tile.current_furniture.update_state()
+			
+			var furniture : Furniture = selected_tile.current_furniture
+			var direction = Vector2i.RIGHT if furniture.sprites_container.scale.x > 0 else Vector2i.DOWN
+			#print(resource)
+			var grid_pos = get_untransformed_position(furniture.position)
+			for i in furniture.resource.size:
+				var test_tile = tiles.get(grid_pos + direction * i) as Tile
+				print(str(grid_pos + direction * i), " ", test_tile)
+				if tile and test_tile == tile: continue
+				if not test_tile or (test_tile.current_furniture):
+					print("nooooo")
+					return;
+			selected_tile.current_furniture.target_position = tile.position
 			selected_tile.current_furniture.apply_position()
+			
 		selected_tile = null
 	else:
 		selected_tile = tile
@@ -142,6 +155,8 @@ func puzzle_click_tile(tile: Tile):
 		if not tile.current_furniture: return;
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 				tile.current_furniture.flip()
+				update_validity()
+				validate_level()
 				return;
 		selected_tile = tile
 		tile.is_selected = true
@@ -149,27 +164,46 @@ func puzzle_click_tile(tile: Tile):
 
 func puzzle_mouse_entered_tile(tile: Tile):
 	if not selected_tile or not selected_tile.current_furniture: return;
-	if tile.is_occupied or tile.grid_position == left_door_position: return;
-	selected_tile.current_furniture.position = tile.position
+	
+	if tile.is_occupied and (selected_tile.current_furniture != tile.current_furniture): return;
+	if tile.grid_position == left_door_position: return;
+	
+	var furniture : Furniture = selected_tile.current_furniture
+	var direction = Vector2i.RIGHT if furniture.sprites_container.scale.x > 0 else Vector2i.DOWN
+	#print(resource)
+	var grid_pos = get_untransformed_position(tile.position)
+	for i in furniture.resource.size:
+		var test_tile = tiles.get(grid_pos + direction * i) as Tile
+		if tile and test_tile == tile: continue
+		if not test_tile or (test_tile.current_furniture and test_tile.current_furniture != furniture):
+			print("nooooo")
+			return;
+					
+	selected_tile.current_furniture.target_position = tile.position
 	selected_tile.current_furniture.apply_position()
 	
 	selected_tile = tile
 	tile.is_selected = true
 	if selected_tile.current_furniture: selected_tile.current_furniture.update_state()
+	
+	update_validity()
+
 
 func puzzle_left_click_released():
 	if not selected_tile or not selected_tile.current_furniture: return;
 	
-	for f in get_furnitures():
-		f.update_validity()
-		f.update_state()
 				
 	selected_tile.is_selected = false
 	selected_tile.current_furniture.update_state()
 	selected_tile = null
 	
 	validate_level()
-
+	
+func update_validity():
+	for f in get_furnitures():
+		f.update_validity()
+		f.update_state()
+		
 func validate_level():
 	# check furnitures validity
 	var is_valid = true
@@ -183,10 +217,13 @@ func validate_level():
 	if not path:
 		print("no valid path found")
 		return false
-		
+	path.pop_front()
 	for p in path:
-		player.position = get_transformed_position(p)
-		await get_tree().create_timer(0.3).timeout
+		#player.position = get_transformed_position(p)
+		player.animation_player.play("jump")
+		await get_tree().create_timer(0.15).timeout
+		get_tree().create_tween().tween_property(player, "position", get_transformed_position(p), 0.25)
+		await get_tree().create_timer(0.30).timeout
 	player.position = get_transformed_position(left_door_position)
 	print("winnn")
 

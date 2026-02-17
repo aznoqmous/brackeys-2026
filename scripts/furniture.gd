@@ -30,21 +30,26 @@ class_name Furniture
 @export var valid_color: Color
 
 var tile: Tile
+var tiles: Array[Tile]
 @export var is_valid:=false
+
+var target_position: Vector2
 
 func _ready():
 	sprite_2d.material.set("shader_parameter/texture_albedo", sprite)
+	target_position = position
 	update_state()
 
 var last_position : Vector2
 func _process(delta: float) -> void:
+	position = lerp(position, target_position, delta * 20.0)
 	if not main: return;
 	if Engine.is_editor_hint():
 		if tile and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-			position = tile.position
-		if position != last_position:
-			if not main.tiles.has(main.get_untransformed_position(position)): return;
-			var target_tile = main.tiles[main.get_untransformed_position(position)]
+			target_position = tile.position
+		if target_position != last_position:
+			if not main.tiles.has(main.get_untransformed_position(target_position)): return;
+			var target_tile = main.tiles[main.get_untransformed_position(target_position)]
 			if not target_tile: return
 			if target_tile != tile and target_tile.is_occupied: return
 			apply_position()
@@ -63,22 +68,25 @@ func load_resource(res: FurnitureResource):
 
 # register self to tile
 func apply_position():
-	var direction = Vector2i.RIGHT if sprites_container.scale.x > 0 else Vector2i.DOWN
-	#print(resource)
-	var grid_pos = main.get_untransformed_position(position)
-	for i in resource.size:
-		var test_tile = main.tiles.get(grid_pos + direction * i) as Tile
-		print(str(grid_pos + direction * i), " ", test_tile)
-		if tile and test_tile == tile: continue
-		if not test_tile or (test_tile.current_furniture):
-			print("nooooo")
-			return;
-		
+	for t in tiles:
+		t.current_furniture = null
+	tiles.clear()
+	
+	var grid_pos = main.get_untransformed_position(target_position)
+
 	if tile: tile.current_furniture = null
 	main.tiles[grid_pos].current_furniture = self
-	position = main.world_to_grid_position(position)
+	target_position = main.world_to_grid_position(target_position)
 	tile = main.tiles[grid_pos]
-	last_position = position
+	last_position = target_position
+	
+	tiles.clear()
+	
+	var direction = Vector2i.RIGHT if sprites_container.scale.x > 0 else Vector2i.DOWN
+	for i in resource.size:
+		var tile = main.tiles.get(grid_pos + direction * i) as Tile
+		tiles.push_back(tile)
+		tile.current_furniture = self
 
 func update_state():
 	#sprite_2d.material.set(
@@ -95,11 +103,18 @@ func get_description(res: FurnitureResource):
 	for req in res.requirements:
 		match req.requirement:
 			FurnitureRequirement.Requirement.NearFurniture:
-				text += "needs to be placed near " + get_furniture_name(req.furniture) + "\r\n"
+				text += "needs to be placed near " + get_furniture_name(req.furniture)
 	return text
 
 func flip():
+	var ts = get_tiles(tile, -scale.x)
+	for t in ts:
+		if not t or (t.current_furniture and t.current_furniture != self): return;
+		
 	sprites_container.scale.x = -sprites_container.scale.x
+
+	apply_position()
+	main.update_validity()
 
 func get_furniture_name(type: FurnitureResource.FurnitureType):
 	match type:
@@ -138,3 +153,15 @@ func is_valid_requirement(req: FurnitureRequirement) -> bool:
 		FurnitureRequirement.Requirement.NearWindow:
 			return tile.is_window
 	return true
+
+# returns owned tiles in placed on said tile
+func get_tiles(ti: Tile, flipped:= true) -> Array[Tile]: 
+	var direction = Vector2i.RIGHT if not flipped else Vector2i.DOWN
+	#print(resource)
+	var ts : Array[Tile]
+	var grid_pos = main.get_untransformed_position(ti.position)
+	for i in resource.size:
+		var t = main.tiles.get(grid_pos + direction * i) as Tile
+		if not t: continue;
+		ts.push_back(t)
+	return ts
