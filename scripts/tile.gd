@@ -64,6 +64,7 @@ func _input(event: InputEvent) -> void:
 		clicked.emit()
 		
 func _process(delta: float) -> void:
+	if not main: return;
 	wall_left.material.set("shader_parameter/color", main.walls_color)
 	wall_right.material.set("shader_parameter/color", main.walls_color.darkened(0.2))
 	inner_sprite.modulate = main.walls_color.darkened(0.2)

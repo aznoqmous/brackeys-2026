@@ -10,6 +10,11 @@ requirement = 2
 furniture = 4
 metadata/_custom_type_script = "uid://xhfsibt0nvwm"
 
+[sub_resource type="Resource" id="Resource_c58cr"]
+script = ExtResource("1_b1okl")
+requirement = 8
+metadata/_custom_type_script = "uid://xhfsibt0nvwm"
+
 [resource]
 script = ExtResource("2_uirxg")
 name = "Bed"
@@ -17,5 +22,5 @@ type = 5
 max_count = 1
 sprite = ExtResource("3_uirxg")
 size = 2
-requirements = Array[ExtResource("1_b1okl")]([SubResource("Resource_uirxg")])
+requirements = Array[ExtResource("1_b1okl")]([SubResource("Resource_uirxg"), SubResource("Resource_c58cr")])
 metadata/_custom_type_script = "uid://dhko0a4d0m02f"

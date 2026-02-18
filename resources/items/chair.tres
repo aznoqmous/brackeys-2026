@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://cbs2q2lqlgpsg"]
+
+[ext_resource type="Script" uid="uid://cgt7c7b72ukrj" path="res://scripts/resources/item_resource.gd" id="1_kgonb"]
+[ext_resource type="Resource" uid="uid://b17f37vkk17l7" path="res://resources/furnitures/chair.tres" id="1_t58ma"]
+
+[resource]
+script = ExtResource("1_kgonb")
+name = "Chair"
+furniture = ExtResource("1_t58ma")
+metadata/_custom_type_script = "uid://cgt7c7b72ukrj"

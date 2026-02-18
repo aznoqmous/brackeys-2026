@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://dmlxdc460lr65"]
+
+[ext_resource type="Texture2D" uid="uid://th3udd0g8u08" path="res://sprites/furnitures/shelf.png" id="1_3ij8l"]
+[ext_resource type="Script" uid="uid://bqwg876hssqc5" path="res://scripts/uis/inventory_slot.gd" id="1_qi2xp"]
+[ext_resource type="Script" uid="uid://ee2gltegm5j6" path="res://scripts/tile_scale_container.gd" id="2_c13kb"]
+[ext_resource type="Texture2D" uid="uid://b11clw0jfwotn" path="res://sprites/nine-patch.png" id="3_s2hqy"]
+[ext_resource type="FontFile" uid="uid://n0g47af416mr" path="res://Gaegu-Bold.ttf" id="4_t1mo2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_st3ap"]
+font = ExtResource("4_t1mo2")
+font_size = 18
+font_color = Color(0, 0, 0, 1)
+
+[node name="InventorySlot" type="Control" unique_id=1937371880]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_qi2xp")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1243469577]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -13.0
+offset_top = -35.0
+offset_right = -13.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.24, 1.24)
+texture = ExtResource("1_3ij8l")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Control" type="Container" parent="." unique_id=1987620349]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 133.0
+offset_bottom = 133.0
+script = ExtResource("2_c13kb")
+tile_scale = 0.225
+metadata/_custom_type_script = "uid://ee2gltegm5j6"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control" unique_id=294300477]
+modulate = Color(0.5019608, 0.5019608, 0.5019608, 1)
+layout_mode = 2
+texture = ExtResource("3_s2hqy")
+patch_margin_left = 96
+patch_margin_top = 109
+patch_margin_right = 92
+patch_margin_bottom = 90
+
+[node name="Label" type="Label" parent="." unique_id=58020787]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -37.0
+offset_right = -18.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Shelf"
+label_settings = SubResource("LabelSettings_st3ap")
+horizontal_alignment = 1

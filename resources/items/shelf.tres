@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://do8pxnae1qlob"]
+
+[ext_resource type="Resource" uid="uid://ggspwnr42ukk" path="res://resources/furnitures/shelf.tres" id="1_r67r5"]
+[ext_resource type="Script" uid="uid://cgt7c7b72ukrj" path="res://scripts/resources/item_resource.gd" id="1_wejle"]
+
+[resource]
+script = ExtResource("1_wejle")
+name = "Shelf"
+furniture = ExtResource("1_r67r5")
+metadata/_custom_type_script = "uid://cgt7c7b72ukrj"

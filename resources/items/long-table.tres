@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://cajni2hosui3k"]
+
+[ext_resource type="Resource" uid="uid://dfvnacwxpg6sh" path="res://resources/furnitures/long-table.tres" id="1_d4e1y"]
+[ext_resource type="Script" uid="uid://cgt7c7b72ukrj" path="res://scripts/resources/item_resource.gd" id="2_1vddb"]
+
+[resource]
+script = ExtResource("2_1vddb")
+name = "Long Table"
+furniture = ExtResource("1_d4e1y")
+metadata/_custom_type_script = "uid://cgt7c7b72ukrj"

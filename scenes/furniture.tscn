@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bt5jkavy5b063"]
 
 [ext_resource type="Script" uid="uid://bpqrv8xvrktgt" path="res://scripts/furniture.gd" id="1_k0xlv"]
-[ext_resource type="Resource" uid="uid://8ipdvmhf7qqi" path="res://resources/table.tres" id="2_ngo83"]
+[ext_resource type="Resource" uid="uid://8ipdvmhf7qqi" path="res://resources/furnitures/table.tres" id="2_ngo83"]
 [ext_resource type="Texture2D" uid="uid://cufv3l4cvo6s0" path="res://sprites/furnitures/table.png" id="3_bew5f"]
 [ext_resource type="Texture2D" uid="uid://dalfyro5mto6e" path="res://sprites/shadow.png" id="3_upk6m"]
 [ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="4_sugg3"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://ee2gltegm5j6" path="res://scripts/tile_scale_container.gd" id="9_oa2mr"]
 [ext_resource type="Texture2D" uid="uid://b11clw0jfwotn" path="res://sprites/nine-patch.png" id="10_ngo83"]
 [ext_resource type="FontFile" uid="uid://bepjqkrq1pqw4" path="res://Gaegu-Regular.ttf" id="11_ngo83"]
+[ext_resource type="FontFile" uid="uid://n0g47af416mr" path="res://Gaegu-Bold.ttf" id="12_bew5f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eb6dy"]
 resource_local_to_scene = true
@@ -34,6 +35,12 @@ font = ExtResource("11_ngo83")
 font_size = 26
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_kghvc"]
+font = ExtResource("12_bew5f")
+font_size = 32
+outline_size = 13
+outline_color = Color(0, 0, 0, 1)
+
 [node name="table" type="Node2D" unique_id=2049549159 node_paths=PackedStringArray("title_label", "description_label", "sprites_container", "sprite_2d", "shadow_sprite", "shadow_sprite_2")]
 script = ExtResource("1_k0xlv")
 title_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/TitleLabel")
@@ -47,6 +54,7 @@ shadow_sprite_2 = NodePath("SpritesContainer/ShadowSprite2")
 selected_color = Color(1, 1, 1, 1)
 default_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
 valid_color = Color(1, 1, 1, 1)
+preview_color = Color(1, 1, 1, 0.47058824)
 
 [node name="SpritesContainer" type="Node2D" parent="." unique_id=755309763]
 position = Vector2(0, -83)
@@ -137,3 +145,26 @@ text = "anywhere"
 label_settings = SubResource("LabelSettings_bew5f")
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="EditControl" type="Control" parent="." unique_id=1363942119]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CountLabel" type="Label" parent="EditControl" unique_id=45260069]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "1/2"
+label_settings = SubResource("LabelSettings_kghvc")

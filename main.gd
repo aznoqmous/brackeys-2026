@@ -10,8 +10,8 @@ const FURNITURE = preload("uid://bt5jkavy5b063")
 @onready var container: Node2D = $World/Container
 @onready var furnitures_container: Node2D = $World/ObjectsContainer/FurnituresContainer
 @onready var player: Player = $World/ObjectsContainer/Player
-@onready var coins_label: Label = $CanvasLayer/Control/CoinsLabel
-@onready var player_canvas: Node2D = $PlayerCanvas
+@export var coins_label: Label
+@onready var player_canvas: Node2D = $World/PlayerCanvas
 var coins := 0
 
 @export var game_mode: GameMode
@@ -51,21 +51,49 @@ enum GameMode {
 @export var walls_color : Color
 @export var floor_color : Color
 
+
 var tiles : Dictionary[Vector2i, Tile]
 var furnitures: Array[Furniture]
+var furniture_counts : Dictionary[FurnitureResource, int]
 var selected_tile : Tile
 
+@export_category("Inventory")
+@export var inventory_items : Array[ItemResource]
+@export var inventory: Inventory
+
+@export_category("Furnitures")
 @export var furniture_resources : Array[FurnitureResource]
 
 func _ready():
 	build()
 	
 	if not Engine.is_editor_hint():
+		inventory.items = inventory_items
+		inventory.build_inventory()
 		for f in furnitures_container.get_children():
 			f = f as Furniture
 			furnitures.push_back(f)
 			f.apply_position()
 		update_validity()
+
+func _input(event):
+	if game_mode == GameMode.Puzzle:
+		if event.is_action_released("LeftClick"):
+			puzzle_left_click_released()
+			validate_level()
+	if game_mode == GameMode.EditMode:
+		if event.is_action_released("LeftClick"):
+			puzzle_left_click_released()
+
+	if event.is_action_pressed("ui_down"):
+		create_random_room()
+		shuffle_room()
+		update_validity()
+		start_puzzle()
+
+func _process(delta):
+	if preview_furniture and not preview_furniture.tile:
+		preview_furniture.target_position = get_mouse_position()
 
 func build():
 	if not container: return;
@@ -86,6 +114,7 @@ func build():
 			)
 			tile.mouse_entered.connect(func():
 				if game_mode == GameMode.Puzzle: puzzle_mouse_entered_tile(tile)
+				if game_mode == GameMode.EditMode: edit_mouse_entered(tile)
 			)
 			tile.is_door = tile.grid_position == left_door_position or tile.grid_position == right_door_position
 				
@@ -130,44 +159,33 @@ func world_to_grid_position(pos) -> Vector2:
 	return get_transformed_position(get_untransformed_position(pos - container.position)) + container.position
 
 func edit_click_tile(tile: Tile):
-	# Player doesnt move this wayyy
-	# player.position = tile.position + container.position
-	if selected_tile:
-		if selected_tile.current_furniture:
-			selected_tile.is_selected = false
-			selected_tile.current_furniture.update_state()
-			
-			var furniture : Furniture = selected_tile.current_furniture
-			var direction = Vector2i.RIGHT if furniture.sprites_container.scale.x > 0 else Vector2i.DOWN
-			#print(resource)
-			var grid_pos = get_untransformed_position(furniture.position)
-			for i in furniture.resource.size:
-				var test_tile = tiles.get(grid_pos + direction * i) as Tile
-				print(str(grid_pos + direction * i), " ", test_tile)
-				if tile and test_tile == tile: continue
-				if not test_tile or (test_tile.current_furniture):
-					print("nooooo")
-					return;
-			selected_tile.current_furniture.target_position = tile.position
-			selected_tile.current_furniture.apply_position()
-			
-		selected_tile = null
-	else:
-		selected_tile = tile
-		tile.is_selected = true
-		if selected_tile.current_furniture: selected_tile.current_furniture.update_state()
-
-func _input(event):
-	if game_mode == GameMode.Puzzle:
-		if event.is_action_released("LeftClick"):
-			puzzle_left_click_released()
-	
-	if event.is_action_pressed("ui_down"):
-		create_random_room()
-		shuffle_room()
+	if preview_furniture:
+		if not is_available_position(tile, preview_furniture): return;
+		preview_furniture.is_preview = false
+		preview_furniture.apply_position()
+		preview_furniture = null
 		update_validity()
-		start_puzzle()
-		
+	else:
+		puzzle_click_tile(tile)
+
+func edit_mouse_entered(tile):
+	if preview_furniture:
+		if not is_available_position(tile, preview_furniture): return;
+		preview_furniture.target_position = tile.position
+		preview_furniture.apply_position()
+		update_validity()
+	else:
+		puzzle_mouse_entered_tile(tile)
+
+func is_available_position(tile, furniture:Furniture):
+	var ptiles = furniture.get_tiles(tile, furniture.flipped)
+	if ptiles.size() != furniture.resource.size: return false
+	for t in furniture.get_tiles(tile, furniture.flipped):
+		if t.current_furniture and t.current_furniture != furniture: return false
+	return true
+
+var left_clicked_time := 0.0
+var double_click_time := 0.5
 func puzzle_click_tile(tile: Tile):
 	if selected_tile:
 		if selected_tile.current_furniture:
@@ -176,10 +194,25 @@ func puzzle_click_tile(tile: Tile):
 		selected_tile = null
 	else:
 		if not tile.current_furniture: return;
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			if Time.get_ticks_msec() / 1000.0 - left_clicked_time < double_click_time:
 				tile.current_furniture.flip()
 				update_validity()
-				validate_level()
+				if game_mode == GameMode.Puzzle: validate_level()
+				left_clicked_time = Time.get_ticks_msec() / 1000.0
+				return
+			left_clicked_time = Time.get_ticks_msec() / 1000.0
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+			if game_mode == GameMode.EditMode:
+				inventory.add_furniture(tile.current_furniture.resource)
+				furnitures.erase(tile.current_furniture)
+				tile.current_furniture.remove()
+				update_validity()
+				
+				#tile.current_furniture.flip()
+				#update_validity()
+				#if game_mode == GameMode.Puzzle: validate_level()
 				return;
 		selected_tile = tile
 		tile.is_selected = true
@@ -191,16 +224,7 @@ func puzzle_mouse_entered_tile(tile: Tile):
 	if tile.is_occupied and (selected_tile.current_furniture != tile.current_furniture): return;
 	if tile.grid_position == left_door_position: return;
 	
-	var furniture : Furniture = selected_tile.current_furniture
-	var direction = Vector2i.RIGHT if furniture.sprites_container.scale.x > 0 else Vector2i.DOWN
-	#print(resource)
-	var grid_pos = get_untransformed_position(tile.position)
-	for i in furniture.resource.size:
-		var test_tile = tiles.get(grid_pos + direction * i) as Tile
-		if tile and test_tile == tile: continue
-		if not test_tile or (test_tile.current_furniture and test_tile.current_furniture != furniture):
-			print("nooooo")
-			return;
+	if not is_available_position(tile, selected_tile.current_furniture): return;
 					
 	selected_tile.current_furniture.target_position = tile.position
 	selected_tile.current_furniture.apply_position()
@@ -218,8 +242,7 @@ func puzzle_left_click_released():
 	selected_tile.is_selected = false
 	selected_tile.current_furniture.update_state()
 	selected_tile = null
-	
-	validate_level()
+
 	
 func update_validity():
 	for f in get_furnitures():
@@ -383,5 +406,26 @@ func find_path(start: Vector2i, goal: Vector2i) -> Array[Vector2i]:
 
 	return [] # No path found
 
+func update_counts():
+	for f in furnitures:
+		if not furniture_counts.has(f.resource): furniture_counts[f.resource] = 0
+		furniture_counts[f.resource] += 1
+	for f in furnitures:
+		f.update_count(furniture_counts[f.resource])
+		
 func update_coins():
 	coins_label.text = str(coins)
+
+var preview_furniture : Furniture
+func set_preview_item(ir: ItemResource):
+	var furniture := FURNITURE.instantiate() as Furniture
+	furniture.resource = ir.furniture
+	furnitures_container.add_child(furniture)
+	preview_furniture = furniture
+	preview_furniture.is_preview = true
+	furnitures.push_back(preview_furniture)
+	preview_furniture.update_state()
+	preview_furniture.position = get_mouse_position()
+
+func get_mouse_position():
+	return (get_viewport().get_mouse_position() - container.global_position) / get_viewport().get_camera_2d().zoom
