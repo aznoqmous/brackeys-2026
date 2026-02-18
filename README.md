@@ -18,11 +18,8 @@ Thang Shui
 - noisy
 - blocking (default)
 
-## Scoring rules
-- Symetry
-
 ## Game Loop
 - Solve puzzle
-- Gain coins
-- Buy furnitures
+- Gain random furniture
 - Place furnitures in your own room
+  - Level up the room (+room size)
