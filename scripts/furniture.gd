@@ -29,6 +29,9 @@ class_name Furniture
 @export var default_color: Color
 @export var valid_color: Color
 
+var flipped : bool :
+	get: return sprites_container.scale.x < 0
+	
 var tile: Tile
 var tiles: Array[Tile]
 @export var is_valid:=false
@@ -42,18 +45,22 @@ func _ready():
 
 var last_position : Vector2
 func _process(delta: float) -> void:
-	position = lerp(position, target_position, delta * 20.0)
 	if not main: return;
+	scale = lerp(scale, Vector2.ONE * 1.1 if tile and tile.hovered and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) else Vector2.ONE, delta * 20.0)
 	if Engine.is_editor_hint():
 		if tile and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-			target_position = tile.position
+			#target_position = tile.position
+			position = main.world_to_grid_position(position)
+			position.y += 1 if resource.size == 2 else 0 # size 2 fix
+
 		if target_position != last_position:
 			if not main.tiles.has(main.get_untransformed_position(target_position)): return;
 			var target_tile = main.tiles[main.get_untransformed_position(target_position)]
 			if not target_tile: return
 			if target_tile != tile and target_tile.is_occupied: return
 			apply_position()
-
+			
+	else: position = lerp(position, target_position, delta * 20.0)
 	if tile: description_control.set_visible(tile.hovered and not Input.is_action_pressed("LeftClick"))
 
 func load_resource(res: FurnitureResource):
@@ -65,28 +72,24 @@ func load_resource(res: FurnitureResource):
 	name = get_furniture_name(res.type)
 	shadow_sprite.set_visible(res.size == 1)
 	shadow_sprite_2.set_visible(res.size == 2)
+	
 
 # register self to tile
 func apply_position():
-	for t in tiles:
-		t.current_furniture = null
-	tiles.clear()
-	
 	var grid_pos = main.get_untransformed_position(target_position)
-
-	if tile: tile.current_furniture = null
-	main.tiles[grid_pos].current_furniture = self
+	
 	target_position = main.world_to_grid_position(target_position)
+	target_position.y += 1 if resource.size == 2 else 0 # size 2 fix
+	
 	tile = main.tiles[grid_pos]
 	last_position = target_position
 	
+	for t in tiles:
+		t.current_furniture = null
 	tiles.clear()
-	
-	var direction = Vector2i.RIGHT if sprites_container.scale.x > 0 else Vector2i.DOWN
-	for i in resource.size:
-		var tile = main.tiles.get(grid_pos + direction * i) as Tile
-		tiles.push_back(tile)
-		tile.current_furniture = self
+	for t in get_tiles(tile, flipped):
+		tiles.push_back(t)
+		t.current_furniture = self
 
 func update_state():
 	#sprite_2d.material.set(
@@ -103,18 +106,36 @@ func get_description(res: FurnitureResource):
 	for req in res.requirements:
 		match req.requirement:
 			FurnitureRequirement.Requirement.NearFurniture:
-				text += "needs to be placed near " + get_furniture_name(req.furniture)
+				text += "near " + get_furniture_name(req.furniture)
+			FurnitureRequirement.Requirement.NotNearFurniture:
+				text += "away from " + get_furniture_name(req.furniture)
+			FurnitureRequirement.Requirement.NearWall:
+				text += "near wall"
+			FurnitureRequirement.Requirement.NearDoor:
+				text += "near door"
+			FurnitureRequirement.Requirement.NearWindow:
+				text += "near window"
+			FurnitureRequirement.Requirement.NotNearWall:
+				text += "away from wall"
+			FurnitureRequirement.Requirement.NotNearDoor:
+				text += "away from door"
+			FurnitureRequirement.Requirement.NotNearWindow:
+				text += "away from window"
+	if not res.requirements.size(): text += "anywhere"
 	return text
 
-func flip():
-	var ts = get_tiles(tile, -scale.x)
+func flip() -> bool:
+	var ts = get_tiles(tile, not flipped)
+	
+	if ts.size() < resource.size: return false;
 	for t in ts:
-		if not t or (t.current_furniture and t.current_furniture != self): return;
+		if t.current_furniture and t.current_furniture != self: return false;
 		
 	sprites_container.scale.x = -sprites_container.scale.x
 
 	apply_position()
 	main.update_validity()
+	return true
 
 func get_furniture_name(type: FurnitureResource.FurnitureType):
 	match type:
@@ -122,36 +143,45 @@ func get_furniture_name(type: FurnitureResource.FurnitureType):
 		FurnitureResource.FurnitureType.Table: return "table"
 		FurnitureResource.FurnitureType.Plant: return "plant"
 		FurnitureResource.FurnitureType.Shelf: return "shelf"
+		FurnitureResource.FurnitureType.Bed: return "bed"
+		FurnitureResource.FurnitureType.TV: return "tv"
 	return "Furniture"
 
 func update_validity() -> bool:
 	for req in resource.requirements:
-		if not is_valid_requirement(req):
-			is_valid = false
-			return false
+		for t in tiles:
+			if not is_valid_requirement(req, t):
+				is_valid = false
+				return false
 	is_valid = true
 	return true
 	
-func is_valid_requirement(req: FurnitureRequirement) -> bool:
+func is_valid_requirement(req: FurnitureRequirement, t: Tile) -> bool:
 	match req.requirement:
 		FurnitureRequirement.Requirement.None: return true
 		FurnitureRequirement.Requirement.NearFurniture:
 			var check = false
-			for f in main.get_neighbor_furnitures(tile.grid_position):
+			for f in main.get_neighbor_furnitures(t.grid_position):
 				if f.resource.type == req.furniture:
 					check = true
 					break;
 			if not check: return false
 		FurnitureRequirement.Requirement.NotNearFurniture:
-			for f in main.get_neighbor_furnitures(tile.grid_position):
+			for f in main.get_neighbor_furnitures(t.grid_position):
 				if f.resource.type == req.furniture:
 					return false
 		FurnitureRequirement.Requirement.NearWall:
-			return tile.is_wall
+			return t.is_wall
 		FurnitureRequirement.Requirement.NearDoor:
-			return tile.is_door
+			return t.is_door
 		FurnitureRequirement.Requirement.NearWindow:
-			return tile.is_window
+			return t.is_window
+		FurnitureRequirement.Requirement.NotNearWall:
+			return not t.is_wall
+		FurnitureRequirement.Requirement.NotNearDoor:
+			return not t.is_door
+		FurnitureRequirement.Requirement.NotNearWindow:
+			return not t.is_window
 	return true
 
 # returns owned tiles in placed on said tile

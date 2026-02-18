@@ -16,5 +16,7 @@ enum FurnitureType {
 	Chair,
 	Table,
 	Plant,
-	Shelf
+	Shelf,
+	TV,
+	Bed
 }

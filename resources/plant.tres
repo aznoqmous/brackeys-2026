@@ -13,6 +13,7 @@ metadata/_custom_type_script = "uid://xhfsibt0nvwm"
 script = ExtResource("1_vaswm")
 name = "Plant"
 type = 2
+max_count = 2
 sprite = ExtResource("2_vaswm")
 requirements = Array[ExtResource("1_11i4u")]([SubResource("Resource_b6yq4")])
 metadata/_custom_type_script = "uid://dhko0a4d0m02f"

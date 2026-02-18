@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="FurnitureResource" format=3 uid="uid://bua33vgc77fgh"]
+
+[ext_resource type="Script" uid="uid://xhfsibt0nvwm" path="res://scripts/furniture_requirement.gd" id="1_b1okl"]
+[ext_resource type="Script" uid="uid://dhko0a4d0m02f" path="res://scripts/furniture_resource.gd" id="2_uirxg"]
+[ext_resource type="Texture2D" uid="uid://ckcuxde7qd5v7" path="res://sprites/furnitures/bed.png" id="3_uirxg"]
+
+[sub_resource type="Resource" id="Resource_uirxg"]
+script = ExtResource("1_b1okl")
+requirement = 2
+furniture = 4
+metadata/_custom_type_script = "uid://xhfsibt0nvwm"
+
+[resource]
+script = ExtResource("2_uirxg")
+name = "Bed"
+type = 5
+max_count = 1
+sprite = ExtResource("3_uirxg")
+size = 2
+requirements = Array[ExtResource("1_b1okl")]([SubResource("Resource_uirxg")])
+metadata/_custom_type_script = "uid://dhko0a4d0m02f"

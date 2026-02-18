@@ -1,5 +1,7 @@
 # aznoqmous/brackeys-2026
 
+Thang Shui
+
 - table (anywhere)
 - chair (near table)
 - shelf (near wall)
@@ -15,3 +17,12 @@
 ## Attributes
 - noisy
 - blocking (default)
+
+## Scoring rules
+- Symetry
+
+## Game Loop
+- Solve puzzle
+- Gain coins
+- Buy furnitures
+- Place furnitures in your own room

@@ -16,4 +16,8 @@ enum Requirement {
 	NearWall,
 	NearDoor,
 	NearWindow,
+	
+	NotNearWall,
+	NotNearDoor,
+	NotNearWindow,
 }

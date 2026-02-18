@@ -2,6 +2,8 @@
 class_name Tile
 extends Area2D
 
+@onready var main: Main = get_tree().edited_scene_root if Engine.is_editor_hint() else $/root/Main
+
 @export var inner_sprite: Sprite2D
 @export var selection_sprite: Sprite2D
 
@@ -60,5 +62,10 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if hovered and event is InputEventMouseButton and event.is_pressed():
 		clicked.emit()
-
+		
+func _process(delta: float) -> void:
+	wall_left.material.set("shader_parameter/color", main.walls_color)
+	wall_right.material.set("shader_parameter/color", main.walls_color.darkened(0.2))
+	inner_sprite.modulate = main.walls_color.darkened(0.2)
+	pass
 signal clicked()

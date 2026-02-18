@@ -201,6 +201,6 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "0,2"
+text = "(0, 0)"
 label_settings = SubResource("LabelSettings_j8k5k")
 horizontal_alignment = 1

@@ -2,63 +2,157 @@
 
 [ext_resource type="Script" uid="uid://bvb23f5st7o0l" path="res://main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://cbcu0aholnfmm" path="res://scenes/player.tscn" id="2_85g3d"]
+[ext_resource type="Script" uid="uid://dhko0a4d0m02f" path="res://scripts/furniture_resource.gd" id="2_yc10j"]
+[ext_resource type="Resource" uid="uid://ggspwnr42ukk" path="res://resources/shelf.tres" id="7_jscy8"]
+[ext_resource type="Resource" uid="uid://8ipdvmhf7qqi" path="res://resources/table.tres" id="8_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://bt5jkavy5b063" path="res://scenes/furniture.tscn" id="9_85g3d"]
 [ext_resource type="Resource" uid="uid://b17f37vkk17l7" path="res://resources/chair.tres" id="9_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furnitures/chair.png" id="9_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://dojtpumlg4e1" path="res://sprites/furnitures/plant.png" id="10_eb6dy"]
+[ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="10_trceg"]
+[ext_resource type="Texture2D" uid="uid://008dek1vy7ia" path="res://sprites/canvas.png" id="11_a8y0u"]
 [ext_resource type="Resource" uid="uid://cdlorjnvm638q" path="res://resources/plant.tres" id="11_trceg"]
-[ext_resource type="Resource" uid="uid://dfvnacwxpg6sh" path="res://resources/long-table.tres" id="15_jbj1t"]
-[ext_resource type="Texture2D" uid="uid://dj1oyh4x7ivsg" path="res://sprites/furnitures/long-table.png" id="16_muem4"]
+[ext_resource type="Resource" uid="uid://fgutpxw1p1hy" path="res://resources/tv.tres" id="12_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://crj472xqe4c1s" path="res://sprites/FlowMap.png" id="12_jkv2x"]
+[ext_resource type="Texture2D" uid="uid://cugnqeo3ko4rt" path="res://sprites/furnitures/tv.png" id="13_0ld40"]
+[ext_resource type="Texture2D" uid="uid://ccu73j3mwkvis" path="res://sprites/coin.png" id="13_jbj1t"]
+[ext_resource type="FontFile" uid="uid://n0g47af416mr" path="res://Gaegu-Bold.ttf" id="14_a8y0u"]
+[ext_resource type="Resource" uid="uid://bua33vgc77fgh" path="res://resources/bed.tres" id="14_gqmmt"]
+[ext_resource type="Texture2D" uid="uid://ckcuxde7qd5v7" path="res://sprites/furnitures/bed.png" id="15_yc10j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkv2x"]
+atlas = ExtResource("13_jbj1t")
+region = Rect2(10, 9, 46, 44)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jbj1t"]
+font = ExtResource("14_a8y0u")
+font_size = 64
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_85g3d"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_choun"]
+material = SubResource("StandardMaterial3D_85g3d")
+size = Vector2(100, 100)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ya4ey"]
+viewport_path = NodePath("World/PlayerCanvas/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_muem4"]
+shader = ExtResource("10_trceg")
+shader_parameter/texture_albedo = ExtResource("11_a8y0u")
+shader_parameter/texture_flow_map = ExtResource("12_jkv2x")
+shader_parameter/color = Color(0.3647059, 0.3647059, 0.3647059, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 2.0
+shader_parameter/displacement_size = 5.0
 
 [node name="Main" type="Node2D" unique_id=513818981]
 script = ExtResource("1_o5qli")
-left_door_position = Vector2i(0, 2)
-right_door_position = Vector2i(2, 0)
+left_door_position = Vector2i(0, 3)
+right_door_position = Vector2i(3, 0)
 tile_size = Vector2(162, 78)
-room_size = Vector2i(5, 5)
+room_size = Vector2i(4, 4)
 tile_offset = Vector2(0, 39)
 window_count = 3
+walls_color = Color(0.62890625, 0.62890625, 0.62890625, 1)
+floor_color = Color(0.7, 0.48999998, 0.48999998, 1)
+furniture_resources = Array[ExtResource("2_yc10j")]([ExtResource("9_eb6dy"), ExtResource("9_eb6dy"), ExtResource("11_trceg"), ExtResource("7_jscy8"), ExtResource("8_pm3ni")])
 
-[node name="Container" type="Node2D" parent="." unique_id=2058291274]
-metadata/_edit_lock_ = true
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=51444999]
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1923788347]
-zoom = Vector2(0.7, 0.7)
-metadata/_edit_lock_ = true
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=593483237]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="ObjectsContainer" type="Node2D" parent="." unique_id=1191763259]
-y_sort_enabled = true
-metadata/_edit_lock_ = true
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1232286375]
+layout_mode = 1
+offset_left = 1075.0
+offset_top = 24.0
+offset_right = 1121.0
+offset_bottom = 68.0
+texture = SubResource("AtlasTexture_jkv2x")
 
-[node name="Player" parent="ObjectsContainer" unique_id=1966255495 instance=ExtResource("2_85g3d")]
-position = Vector2(-160, 76)
+[node name="CoinsLabel" type="Label" parent="CanvasLayer/Control" unique_id=1098272423]
+layout_mode = 0
+offset_left = 967.0
+offset_top = 14.0
+offset_right = 1062.0
+offset_bottom = 79.0
+text = "0"
+label_settings = SubResource("LabelSettings_jbj1t")
+horizontal_alignment = 2
 
-[node name="FurnituresContainer" type="Node2D" parent="ObjectsContainer" unique_id=2135184305]
-y_sort_enabled = true
+[node name="World" type="Node2D" parent="." unique_id=1338986842]
+position = Vector2(578, 277)
 
-[node name="chair" parent="ObjectsContainer/FurnituresContainer" unique_id=2049549159 instance=ExtResource("9_85g3d")]
-position = Vector2(10, 312)
-resource = ExtResource("9_eb6dy")
-sprite = ExtResource("9_ya4ey")
-
-[node name="chair2" parent="ObjectsContainer/FurnituresContainer" unique_id=383685410 instance=ExtResource("9_85g3d")]
+[node name="PlayerCanvas" type="Node2D" parent="World" unique_id=1802187726]
 position = Vector2(-243, 117)
+scale = Vector2(0.815, 0.815)
+
+[node name="SubViewport" type="SubViewport" parent="World/PlayerCanvas" unique_id=198401340]
+transparent_bg = true
+size = Vector2i(145, 161)
+
+[node name="Camera2D" type="Camera2D" parent="World/PlayerCanvas/SubViewport" unique_id=1330590879]
+
+[node name="Node2D" type="Node2D" parent="World/PlayerCanvas/SubViewport" unique_id=581199160]
+position = Vector2(41.735, 5.34)
+rotation = -1.5707964
+
+[node name="Player" parent="World/PlayerCanvas/SubViewport/Node2D" unique_id=1348459066 instance=ExtResource("2_85g3d")]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="World/PlayerCanvas" unique_id=1966092071]
+position = Vector2(-46.79449, -216.02454)
+rotation = 1.5707964
+scale = Vector2(0.66, -0.66)
+skew = -0.3490659
+mesh = SubResource("QuadMesh_choun")
+texture = SubResource("ViewportTexture_ya4ey")
+
+[node name="Sprite2D" type="Sprite2D" parent="World/PlayerCanvas" unique_id=1835257113]
+material = SubResource("ShaderMaterial_muem4")
+position = Vector2(-45.79449, -230.02454)
+texture = ExtResource("11_a8y0u")
+
+[node name="Container" type="Node2D" parent="World" unique_id=2058291274]
+
+[node name="Camera2D" type="Camera2D" parent="World" unique_id=1923788347]
+zoom = Vector2(0.7, 0.7)
+
+[node name="ObjectsContainer" type="Node2D" parent="World" unique_id=1191763259]
+y_sort_enabled = true
+
+[node name="Player" parent="World/ObjectsContainer" unique_id=1966255495 instance=ExtResource("2_85g3d")]
+position = Vector2(-252, 115)
+
+[node name="FurnituresContainer" type="Node2D" parent="World/ObjectsContainer" unique_id=2135184305]
+y_sort_enabled = true
+
+[node name="chair2" parent="World/ObjectsContainer/FurnituresContainer" unique_id=383685410 instance=ExtResource("9_85g3d")]
+position = Vector2(-162, 78)
 resource = ExtResource("9_eb6dy")
 sprite = ExtResource("9_ya4ey")
 
-[node name="plant" parent="ObjectsContainer/FurnituresContainer" unique_id=683898165 instance=ExtResource("9_85g3d")]
-position = Vector2(83.5, 39)
+[node name="plant" parent="World/ObjectsContainer/FurnituresContainer" unique_id=683898165 instance=ExtResource("9_85g3d")]
+position = Vector2(-81, 39)
 resource = ExtResource("11_trceg")
 sprite = ExtResource("10_eb6dy")
 
-[node name="plant2" parent="ObjectsContainer/FurnituresContainer" unique_id=2027736729 instance=ExtResource("9_85g3d")]
-position = Vector2(334, 156)
-resource = ExtResource("11_trceg")
-sprite = ExtResource("10_eb6dy")
+[node name="shelf" parent="World/ObjectsContainer/FurnituresContainer" unique_id=734935164 instance=ExtResource("9_85g3d")]
+position = Vector2(4, 156)
 
-[node name="table3" parent="ObjectsContainer/FurnituresContainer" unique_id=844662110 instance=ExtResource("9_85g3d")]
-position = Vector2(88.5, 195)
-resource = ExtResource("15_jbj1t")
-sprite = ExtResource("16_muem4")
+[node name="tv" parent="World/ObjectsContainer/FurnituresContainer" unique_id=847094179 instance=ExtResource("9_85g3d")]
+position = Vector2(166, 78)
+resource = ExtResource("12_dp3eg")
+sprite = ExtResource("13_0ld40")
 
-[node name="shelf" parent="ObjectsContainer/FurnituresContainer" unique_id=734935164 instance=ExtResource("9_85g3d")]
+[node name="bed" parent="World/ObjectsContainer/FurnituresContainer" unique_id=1371251334 instance=ExtResource("9_85g3d")]
+position = Vector2(0, 1)
+resource = ExtResource("14_gqmmt")
+sprite = ExtResource("15_yc10j")

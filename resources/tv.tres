@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FurnitureResource" format=3 uid="uid://fgutpxw1p1hy"]
+
+[ext_resource type="Script" uid="uid://xhfsibt0nvwm" path="res://scripts/furniture_requirement.gd" id="1_6em73"]
+[ext_resource type="Script" uid="uid://dhko0a4d0m02f" path="res://scripts/furniture_resource.gd" id="2_em3ld"]
+[ext_resource type="Texture2D" uid="uid://cugnqeo3ko4rt" path="res://sprites/furnitures/tv.png" id="3_em3ld"]
+
+[resource]
+script = ExtResource("2_em3ld")
+name = "TV"
+type = 4
+max_count = 1
+sprite = ExtResource("3_em3ld")
+metadata/_custom_type_script = "uid://dhko0a4d0m02f"

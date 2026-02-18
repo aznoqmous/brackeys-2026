@@ -13,6 +13,7 @@ metadata/_custom_type_script = "uid://xhfsibt0nvwm"
 script = ExtResource("1_ib3pw")
 name = "Shelf"
 type = 3
+max_count = 3
 sprite = ExtResource("2_ib3pw")
 requirements = Array[ExtResource("1_fqcbd")]([SubResource("Resource_lpi1l")])
 metadata/_custom_type_script = "uid://dhko0a4d0m02f"

@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cieo3qdp5nvp2"]
+
+[ext_resource type="Script" uid="uid://bcgl248ermr8v" path="res://scripts/coin.gd" id="1_i64fm"]
+[ext_resource type="Texture2D" uid="uid://ccu73j3mwkvis" path="res://sprites/coin.png" id="1_rwqht"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dp3eg"]
+atlas = ExtResource("1_rwqht")
+region = Rect2(0, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ld40"]
+atlas = ExtResource("1_rwqht")
+region = Rect2(64, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqmmt"]
+atlas = ExtResource("1_rwqht")
+region = Rect2(128, 0, 64, 62)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yc10j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dp3eg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ld40")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqmmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ld40")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Coin" type="Node2D" unique_id=886794530]
+script = ExtResource("1_i64fm")
+
+[node name="CoinSprite" type="AnimatedSprite2D" parent="." unique_id=1781663107]
+sprite_frames = SubResource("SpriteFrames_yc10j")
+autoplay = "default"
+frame_progress = 0.4649704
