@@ -15,6 +15,10 @@ run/main_scene="uid://ied1f8r2pef8"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Data="*uid://bw0pgawkdlakw"
+
 [input]
 
 LeftClick={

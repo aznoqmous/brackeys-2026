@@ -24,35 +24,24 @@ enum GameMode {
 	Cinematic
 }
 
-@export var left_door_position : Vector2i : 
-	set(value):
-		left_door_position = value
-		build()
+@export var left_door_position : Vector2i :
+	get: return current_level.left_door_position
 @export var right_door_position : Vector2i :
-	set(value):
-		right_door_position = value
-		build()
+	get: return current_level.right_door_position
 @export var tile_size : Vector2 :
 	set(value):
 		tile_size = value
 		build()
 @export var room_size : Vector2i :
-	set(value):
-		room_size = value
-		build()
+	get: return current_level.room_size
 @export var tile_offset : Vector2 :
 	set(value):
 		tile_offset = value
-		build()
-@export var window_count: int:
-	set(value):
-		window_count = value
 		build()
 
 @export_category("Colors")
 @export var walls_color : Color
 @export var floor_color : Color
-
 
 var tiles : Dictionary[Vector2i, Tile]
 var furnitures: Array[Furniture]
@@ -71,7 +60,9 @@ var current_level_index := 0
 var current_level: LevelResource:
 	get: return levels[min(current_level_index, levels.size())]
 var next_level:
-	get: return levels[current_level_index + 1]
+	get: 
+		if current_level_index + 1 >= levels.size(): return null
+		return levels[current_level_index + 1]
 var total_score := 0
 	
 @export_category("Room")
@@ -80,15 +71,26 @@ var total_score := 0
 @export var level_slider: LevelSlider
 @export var level_required_score := 10
 
+@export var furniture_check: Label
+@export var path_check: Label
+@export var furniture_check_container: HBoxContainer
+@export var path_check_container: HBoxContainer
+var last_furniture_check := false
+var last_path_check := false
+var is_valid := false
+
 @export_category("Furnitures")
 @export var furniture_resources : Array[FurnitureResource]
 
 func _ready():
 	progress_button.pressed.connect(func():
-		update_progress()
-		if total_score > next_level.required_score:
-			current_level_index += 1
-			build()
+		if game_mode == GameMode.EditMode:
+			print("SAVE THEN GO TO PUZZLE MOOOODE")
+			var data = save_room()
+			load_room(data)
+			shuffle_room()
+			update_validity()
+			start_puzzle()
 	)
 	
 	for f in furnitures_container.get_children():
@@ -110,18 +112,26 @@ func _input(event):
 	if game_mode == GameMode.EditMode:
 		if event.is_action_released("LeftClick"):
 			puzzle_left_click_released()
+			if not next_level:return
+			if total_score >= next_level.required_score and is_valid:
+				if total_score >= next_level.required_score:
+					current_level_index += 1
+					build()
+				update_progress()
 
-	if event.is_action_pressed("ui_down"):
-		create_random_room()
-		shuffle_room()
-		update_validity()
-		start_puzzle()
+	#if event.is_action_pressed("ui_down"):
+		##create_random_room()
+		#shuffle_room()
+		#update_validity()
+		#start_puzzle()
 
 func _process(delta):
 	if preview_furniture and not preview_furniture.tile:
 		preview_furniture.target_position = get_mouse_position()
 	edit_control.set_visible(game_mode == GameMode.EditMode)
-
+	furniture_check_container.scale = lerp(furniture_check_container.scale, Vector2.ONE, delta * 5.0)
+	path_check_container.scale = lerp(path_check_container.scale, Vector2.ONE, delta * 5.0)
+	
 func build():
 	if not container: return;
 	for c in container.get_children():
@@ -138,8 +148,8 @@ func build():
 			tiles[tile.grid_position] = tile
 			container.add_child(tile)
 			tile.clicked.connect(func():
-				if game_mode == GameMode.EditMode: edit_click_tile(tile)
 				if game_mode == GameMode.PuzzleMode: puzzle_click_tile(tile)
+				if game_mode == GameMode.EditMode: edit_click_tile(tile)
 			)
 			tile.mouse_entered.connect(func():
 				if game_mode == GameMode.PuzzleMode: puzzle_mouse_entered_tile(tile)
@@ -161,20 +171,18 @@ func build():
 			
 			for w in current_level.window_positions:
 				if tile.grid_position == w: tile.is_window = true
-	#walls.shuffle()
-	#for i in min(window_count, walls.size() - 1):
-		#walls[i].is_window = true
 	
 	player_canvas.position = get_transformed_position(left_door_position)
+	player.position = get_transformed_position(left_door_position)
 	camera_2d.position.y = tile_size.y / 2.0 * (room_size.x - room_size.y) - (4.0 - max(room_size.x, room_size.y)) * tile_size.y / 2.0
 	
 	for f in furnitures:
 		if f.saved_grid_position:
-			print(f.resource.name, " ", f.saved_grid_position)
 			f.apply_grid_position(f.saved_grid_position)
 			if Engine.is_editor_hint(): f.position = f.target_position
 		else:
 			f.apply_position()
+	
 
 func get_transformed_position(pos: Vector2) -> Vector2:
 	return Vector2(
@@ -238,7 +246,6 @@ func puzzle_click_tile(tile: Tile):
 			if Time.get_ticks_msec() / 1000.0 - left_clicked_time < double_click_time:
 				tile.current_furniture.flip()
 				update_validity()
-				if game_mode == GameMode.PuzzleMode: validate_level()
 				left_clicked_time = Time.get_ticks_msec() / 1000.0
 				return
 			left_clicked_time = Time.get_ticks_msec() / 1000.0
@@ -249,10 +256,6 @@ func puzzle_click_tile(tile: Tile):
 				tile.current_furniture.remove()
 				update_validity()
 				update_progress()
-
-				#tile.current_furniture.flip()
-				#update_validity()
-				#if game_mode == GameMode.PuzzleMode: validate_level()
 				return;
 		selected_tile = tile
 		tile.is_selected = true
@@ -288,7 +291,7 @@ func update_validity():
 	for f in get_furnitures():
 		f.update_validity()
 		f.update_state()
-		
+	validate_level()
 
 func create_random_room():
 	for f in furnitures:
@@ -341,18 +344,34 @@ func shuffle_room():
 				break
 				
 func validate_level():
+	var valid = true
 	# check furnitures validity
+	furniture_check.text = "✔"
 	for f in get_furnitures():
 		if not f.update_validity():
 			print("furnitures not valid")
-			return false
+			furniture_check.text = "❌"
+			valid = false
+			break
+	
+	if valid and not last_furniture_check:
+		furniture_check_container.scale = Vector2.ONE * 1.2
+	last_furniture_check = valid
 	
 	# check path
+	path_check.text = "✔"
 	var path = find_path(left_door_position, right_door_position)
 	if not path:
 		print("no valid path found")
-		return false
-	return true
+		path_check.text = "❌"
+		valid = false
+		last_path_check = false
+	else:
+		if not last_path_check: path_check_container.scale = Vector2.ONE * 1.2
+		last_path_check = true
+	is_valid = valid
+	update_progress()
+	return valid
 	
 func player_animation():
 	var path = find_path(left_door_position, right_door_position)
@@ -471,14 +490,53 @@ func set_preview_item(ir: ItemResource):
 	update_progress()
 
 func update_progress():
-	if not next_level:
-		level_slider.set_visible(false)
-		return
+	level_label.text = str("Level ", current_level_index + 1)
+	if not next_level:return
 	total_score = 0
 	for f in furnitures:
 		total_score += f.resource.score
 	progress_label.text = str(total_score, "/", next_level.required_score)
 	level_slider.value = float(total_score) / float(next_level.required_score)
+	progress_button.set_visible(is_valid)
+
 
 func get_mouse_position():
 	return (get_viewport().get_mouse_position() - container.global_position) / get_viewport().get_camera_2d().zoom / world.scale
+
+func save_room():
+	var fs : Array
+	for f in furnitures:
+		var fu := f as Furniture
+		fs.push_back({
+			"grid_position": {"x": f.tile.grid_position.x, "y": f.tile.grid_position.y},
+			"name": f.resource.name,
+			"flipped": f.flipped
+		})
+		
+	var data = {
+		"name": "aznoqmous",
+		"level": current_level_index,
+		"furnitures": fs
+	}
+	
+	#print(data, furnitures, fs)
+	return JSON.stringify(data)
+	
+func load_room(str_data):
+	var data = JSON.parse_string(str_data)
+	
+	current_level_index = data.level
+	for f in furnitures:
+		f.queue_free()
+	furnitures.clear()
+	
+	build()
+	for f in data.furnitures:
+		var nf := FURNITURE.instantiate() as Furniture
+		var fr := Data.get_furniture_resource_by_name(f.name) as FurnitureResource
+		furnitures_container.add_child(nf)
+		nf.resource = fr
+		nf.apply_grid_position(Vector2i(f.grid_position.x, f.grid_position.y))
+		furnitures.push_back(nf)
+		if f.flipped: nf.flip()
+		

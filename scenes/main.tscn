@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://b17f37vkk17l7" path="res://resources/furnitures/chair.tres" id="9_eb6dy"]
 [ext_resource type="Resource" uid="uid://lxp65mnr5mx" path="res://resources/levels/level_2.tres" id="9_j8jky"]
 [ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furnitures/chair.png" id="9_ya4ey"]
+[ext_resource type="Resource" uid="uid://0rpkwng2p2i8" path="res://resources/levels/level_3.tres" id="10_dgi5k"]
 [ext_resource type="Texture2D" uid="uid://dojtpumlg4e1" path="res://sprites/furnitures/plant.png" id="10_eb6dy"]
 [ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="10_trceg"]
 [ext_resource type="Texture2D" uid="uid://008dek1vy7ia" path="res://sprites/canvas.png" id="11_a8y0u"]
@@ -34,6 +35,10 @@
 [ext_resource type="FontFile" uid="uid://buosvnsjv68i6" path="res://sprites/Gaegu-Bold.ttf" id="20_dgi5k"]
 [ext_resource type="Texture2D" uid="uid://b11clw0jfwotn" path="res://sprites/nine-patch.png" id="21_dgi5k"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_dgi5k"]
+font = ExtResource("20_dgi5k")
+font_size = 22
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_jkv2x"]
 atlas = ExtResource("13_jbj1t")
 region = Rect2(10, 9, 46, 44)
@@ -42,13 +47,9 @@ region = Rect2(10, 9, 46, 44)
 font = ExtResource("14_a8y0u")
 font_size = 64
 
-[sub_resource type="LabelSettings" id="LabelSettings_j8jky"]
-font = ExtResource("20_dgi5k")
-font_size = 32
-
-[sub_resource type="LabelSettings" id="LabelSettings_5q0nq"]
-font = ExtResource("20_dgi5k")
-font_size = 24
+[sub_resource type="LabelSettings" id="LabelSettings_kmb1v"]
+font = ExtResource("14_a8y0u")
+font_size = 34
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5q0nq"]
 
@@ -59,6 +60,14 @@ font_size = 24
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kmb1v"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fuf3a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_j8jky"]
+font = ExtResource("20_dgi5k")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_5q0nq"]
+font = ExtResource("20_dgi5k")
+font_size = 24
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_85g3d"]
 vertex_color_use_as_albedo = true
@@ -79,26 +88,29 @@ shader_parameter/displacement_steps = 4
 shader_parameter/displacement_power = 2.0
 shader_parameter/displacement_size = 5.0
 
-[node name="Main" type="Node2D" unique_id=513818981 node_paths=PackedStringArray("coins_label", "inventory", "edit_control", "progress_button", "level_label", "progress_label", "level_slider")]
+[node name="Main" type="Node2D" unique_id=513818981 node_paths=PackedStringArray("coins_label", "inventory", "edit_control", "progress_button", "level_label", "progress_label", "level_slider", "furniture_check", "path_check", "furniture_check_container", "path_check_container")]
 script = ExtResource("1_o5qli")
 coins_label = NodePath("CanvasLayer/Control/Control/CoinsLabel")
 game_mode = 1
 left_door_position = Vector2i(0, 3)
 right_door_position = Vector2i(3, 0)
 tile_size = Vector2(162, 78)
-room_size = Vector2i(5, 5)
+room_size = Vector2i(4, 4)
 tile_offset = Vector2(0, 39)
-window_count = 2
 walls_color = Color(0.62890625, 0.62890625, 0.62890625, 1)
 floor_color = Color(0.7, 0.48999998, 0.48999998, 1)
 inventory_items = Array[ExtResource("2_gqmmt")]([ExtResource("4_y6deb"), ExtResource("4_2wyq8"), ExtResource("5_vxglm"), ExtResource("3_yc10j")])
 inventory = NodePath("CanvasLayer/EditControl/Inventory")
 edit_control = NodePath("CanvasLayer/EditControl")
-progress_button = NodePath("CanvasLayer/EditControl/ScoreControl/ProgressButton")
-levels = Array[ExtResource("7_5q0nq")]([ExtResource("8_dgi5k"), ExtResource("9_j8jky")])
+progress_button = NodePath("CanvasLayer/EditControl/ProgressButton")
+levels = Array[ExtResource("7_5q0nq")]([ExtResource("8_dgi5k"), ExtResource("9_j8jky"), ExtResource("10_dgi5k")])
 level_label = NodePath("CanvasLayer/EditControl/ScoreControl/LevelLabel")
 progress_label = NodePath("CanvasLayer/EditControl/ScoreControl/ProgressLabel")
 level_slider = NodePath("CanvasLayer/EditControl/ScoreControl/LevelSlider")
+furniture_check = NodePath("CanvasLayer/Control/ValidityCheckControl/VBoxContainer/FurnitureCheckContainer/FurnitureCheck")
+path_check = NodePath("CanvasLayer/Control/ValidityCheckControl/VBoxContainer/PathCheckContainer/PathCheck")
+furniture_check_container = NodePath("CanvasLayer/Control/ValidityCheckControl/VBoxContainer/FurnitureCheckContainer")
+path_check_container = NodePath("CanvasLayer/Control/ValidityCheckControl/VBoxContainer/PathCheckContainer")
 furniture_resources = Array[ExtResource("2_yc10j")]([ExtResource("9_eb6dy"), ExtResource("9_eb6dy"), ExtResource("11_trceg"), ExtResource("7_jscy8"), ExtResource("9_eb6dy"), ExtResource("9_eb6dy"), ExtResource("6_0ld40")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=51444999]
@@ -111,6 +123,70 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="ValidityCheckControl" type="Control" parent="CanvasLayer/Control" unique_id=185665941]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -151.0
+offset_top = -95.0
+offset_right = 151.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="Control" parent="CanvasLayer/Control/ValidityCheckControl" unique_id=711633854]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_right = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FurnitureCheckContainer" type="HBoxContainer" parent="CanvasLayer/Control/ValidityCheckControl/VBoxContainer" unique_id=1253397227]
+layout_mode = 0
+offset_left = -87.0
+offset_top = 24.0
+offset_right = 265.0
+offset_bottom = 47.0
+pivot_offset = Vector2(176, 11)
+
+[node name="FurnitureCheck" type="Label" parent="CanvasLayer/Control/ValidityCheckControl/VBoxContainer/FurnitureCheckContainer" unique_id=389193775]
+layout_mode = 2
+text = "✔"
+label_settings = SubResource("LabelSettings_dgi5k")
+horizontal_alignment = 1
+
+[node name="FurnitureLabel" type="Label" parent="CanvasLayer/Control/ValidityCheckControl/VBoxContainer/FurnitureCheckContainer" unique_id=1896671373]
+layout_mode = 2
+text = "All furnitures are correctly placed"
+label_settings = SubResource("LabelSettings_dgi5k")
+horizontal_alignment = 1
+
+[node name="PathCheckContainer" type="HBoxContainer" parent="CanvasLayer/Control/ValidityCheckControl/VBoxContainer" unique_id=735307269]
+layout_mode = 0
+offset_left = -87.0
+offset_top = 51.0
+offset_right = 265.0
+offset_bottom = 74.0
+pivot_offset = Vector2(176, 11)
+
+[node name="PathCheck" type="Label" parent="CanvasLayer/Control/ValidityCheckControl/VBoxContainer/PathCheckContainer" unique_id=1540888873]
+layout_mode = 2
+text = "❌"
+label_settings = SubResource("LabelSettings_dgi5k")
+horizontal_alignment = 1
+
+[node name="PathLabel" type="Label" parent="CanvasLayer/Control/ValidityCheckControl/VBoxContainer/PathCheckContainer" unique_id=1059335746]
+layout_mode = 2
+text = "Path to next door is walkable"
+label_settings = SubResource("LabelSettings_dgi5k")
+horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="CanvasLayer/Control" unique_id=1830084040]
 visible = false
@@ -147,6 +223,29 @@ text = "123"
 label_settings = SubResource("LabelSettings_jbj1t")
 horizontal_alignment = 2
 
+[node name="NameControl" type="Control" parent="CanvasLayer/Control" unique_id=2114191765]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 25.0
+offset_right = 20.0
+offset_bottom = 65.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/NameControl" unique_id=1299786299]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "aznoqmous's flat"
+label_settings = SubResource("LabelSettings_kmb1v")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="EditControl" type="Control" parent="CanvasLayer" unique_id=376108424]
 layout_mode = 3
 anchors_preset = 15
@@ -156,6 +255,54 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
+[node name="ProgressButton" type="Button" parent="CanvasLayer/EditControl" unique_id=968818802]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -195.0
+offset_top = -76.0
+offset_right = -85.0
+offset_bottom = -45.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("20_dgi5k")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5q0nq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dgi5k")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j8jky")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kmb1v")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fuf3a")
+text = "CONTINUE !"
+
+[node name="TileScaleContainer" type="Container" parent="CanvasLayer/EditControl/ProgressButton" unique_id=2106189072]
+modulate = Color(0.5019608, 0.5019608, 0.5019608, 1)
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -29.627907
+offset_top = -13.0
+offset_right = 29.627907
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("20_5q0nq")
+tile_scale = 0.16
+metadata/_custom_type_script = "uid://ee2gltegm5j6"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/EditControl/ProgressButton/TileScaleContainer" unique_id=260428990]
+layout_mode = 2
+texture = ExtResource("21_dgi5k")
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+
 [node name="Inventory" type="Control" parent="CanvasLayer/EditControl" unique_id=381616656 node_paths=PackedStringArray("inventory_slots_container")]
 layout_mode = 1
 anchors_preset = 9
@@ -164,7 +311,7 @@ offset_right = 322.0
 grow_vertical = 2
 script = ExtResource("11_pm3ni")
 inventory_slots_container = NodePath("InventorySlotsContainer")
-inventory_size = 18
+inventory_size = 12
 game_item_resources = Array[ExtResource("2_gqmmt")]([ExtResource("15_yq6so"), ExtResource("3_yc10j"), ExtResource("16_fv21b"), ExtResource("4_2wyq8"), ExtResource("4_y6deb"), ExtResource("5_vxglm"), ExtResource("17_tel4y")])
 
 [node name="InventorySlotsContainer" type="GridContainer" parent="CanvasLayer/EditControl/Inventory" unique_id=412524025]
@@ -174,10 +321,10 @@ anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 29.0
 offset_top = -244.0
-offset_right = 271.0
+offset_right = 189.0
 offset_bottom = 244.0
 grow_vertical = 2
-columns = 3
+columns = 2
 
 [node name="ScoreControl" type="Control" parent="CanvasLayer/EditControl" unique_id=178411475]
 layout_mode = 1
@@ -292,53 +439,6 @@ patch_margin_top = 100
 patch_margin_right = 90
 patch_margin_bottom = 108
 
-[node name="ProgressButton" type="Button" parent="CanvasLayer/EditControl/ScoreControl" unique_id=968818802]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -31.5
-offset_top = -47.0
-offset_right = 36.5
-offset_bottom = -16.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("20_dgi5k")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_5q0nq")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_dgi5k")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_j8jky")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_kmb1v")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_fuf3a")
-text = "PROGRESS"
-
-[node name="TileScaleContainer" type="Container" parent="CanvasLayer/EditControl/ScoreControl/ProgressButton" unique_id=2106189072]
-modulate = Color(0.5019608, 0.5019608, 0.5019608, 1)
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -14.0
-offset_top = -6.0
-offset_right = 14.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("20_5q0nq")
-tile_scale = 0.16
-metadata/_custom_type_script = "uid://ee2gltegm5j6"
-
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/EditControl/ScoreControl/ProgressButton/TileScaleContainer" unique_id=260428990]
-layout_mode = 2
-texture = ExtResource("21_dgi5k")
-patch_margin_left = 100
-patch_margin_top = 100
-patch_margin_right = 100
-patch_margin_bottom = 100
-
 [node name="World" type="Node2D" parent="." unique_id=1338986842]
 position = Vector2(578, 277)
 scale = Vector2(0.7, 0.7)
@@ -375,13 +475,12 @@ texture = ExtResource("11_a8y0u")
 [node name="Container" type="Node2D" parent="World" unique_id=2058291274]
 
 [node name="Camera2D" type="Camera2D" parent="World" unique_id=1923788347]
-position = Vector2(0, 39)
 
 [node name="ObjectsContainer" type="Node2D" parent="World" unique_id=1191763259]
 y_sort_enabled = true
 
 [node name="Player" parent="World/ObjectsContainer" unique_id=1966255495 instance=ExtResource("2_85g3d")]
-position = Vector2(-247.14287, 117.142876)
+position = Vector2(-243, 117)
 
 [node name="FurnituresContainer" type="Node2D" parent="World/ObjectsContainer" unique_id=2135184305]
 y_sort_enabled = true
@@ -392,14 +491,14 @@ resource = ExtResource("9_eb6dy")
 sprite = ExtResource("9_ya4ey")
 
 [node name="plant" parent="World/ObjectsContainer/FurnituresContainer" unique_id=683898165 instance=ExtResource("9_85g3d")]
-position = Vector2(5, 156)
+position = Vector2(4, 156)
 resource = ExtResource("11_trceg")
 sprite = ExtResource("10_eb6dy")
 
 [node name="shelf" parent="World/ObjectsContainer/FurnituresContainer" unique_id=734935164 instance=ExtResource("9_85g3d")]
-position = Vector2(83.5, 39)
+position = Vector2(83, 39)
 
 [node name="tv" parent="World/ObjectsContainer/FurnituresContainer" unique_id=847094179 instance=ExtResource("9_85g3d")]
-position = Vector2(167, 78)
+position = Vector2(166, 78)
 resource = ExtResource("12_dp3eg")
 sprite = ExtResource("13_0ld40")

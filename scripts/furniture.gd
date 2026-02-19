@@ -89,8 +89,9 @@ func load_resource(res: FurnitureResource):
 # register self to tile
 func apply_position():
 	var grid_pos = main.get_untransformed_position(target_position)
+	grid_pos.y = max(0, grid_pos.y) #cheat
 	
-	target_position = main.world_to_grid_position(target_position)
+	target_position = main.get_transformed_position(grid_pos)
 	target_position.y += 1 if resource.size == 2 else 0 # size 2 fix
 	last_position = target_position
 	
