@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://b11clw0jfwotn" path="res://sprites/nine-patch.png" id="10_ngo83"]
 [ext_resource type="FontFile" uid="uid://bepjqkrq1pqw4" path="res://Gaegu-Regular.ttf" id="11_ngo83"]
 [ext_resource type="FontFile" uid="uid://n0g47af416mr" path="res://Gaegu-Bold.ttf" id="12_bew5f"]
+[ext_resource type="Texture2D" uid="uid://b4abu5iwwau63" path="res://sprites/particle.png" id="13_cl4yy"]
+[ext_resource type="FontFile" uid="uid://buosvnsjv68i6" path="res://sprites/Gaegu-Bold.ttf" id="14_lgncd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eb6dy"]
 resource_local_to_scene = true
@@ -41,10 +43,16 @@ font_size = 32
 outline_size = 13
 outline_color = Color(0, 0, 0, 1)
 
-[node name="table" type="Node2D" unique_id=2049549159 node_paths=PackedStringArray("title_label", "description_label", "sprites_container", "sprite_2d", "shadow_sprite", "shadow_sprite_2")]
+[sub_resource type="LabelSettings" id="LabelSettings_axdrx"]
+font = ExtResource("14_lgncd")
+font_size = 39
+
+[node name="table" type="Node2D" unique_id=2049549159 node_paths=PackedStringArray("title_label", "description_label", "edit_control", "score_label", "sprites_container", "sprite_2d", "shadow_sprite", "shadow_sprite_2")]
 script = ExtResource("1_k0xlv")
 title_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/TitleLabel")
 description_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/DescriptionLabel")
+edit_control = NodePath("EditControl")
+score_label = NodePath("EditControl/ScoreControl/ScoreLabel")
 resource = ExtResource("2_ngo83")
 sprites_container = NodePath("SpritesContainer")
 sprite_2d = NodePath("SpritesContainer/Sprite2D")
@@ -78,11 +86,12 @@ texture = ExtResource("5_dh8sm")
 
 [node name="DescriptionControl" type="Control" parent="." unique_id=2099002806]
 visible = false
+z_index = 2
 layout_mode = 3
 anchors_preset = 0
-offset_left = -74.0
+offset_left = -78.0
 offset_top = -200.0
-offset_right = 74.0
+offset_right = 70.0
 offset_bottom = -97.0
 
 [node name="MarginContainer" type="MarginContainer" parent="DescriptionControl" unique_id=119108682]
@@ -147,6 +156,8 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="EditControl" type="Control" parent="." unique_id=1363942119]
+visible = false
+z_index = 1
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -168,3 +179,34 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "1/2"
 label_settings = SubResource("LabelSettings_kghvc")
+
+[node name="ScoreControl" type="Control" parent="EditControl" unique_id=694607712]
+anchors_preset = 0
+offset_left = -8.0
+offset_top = -93.0
+offset_right = 32.0
+offset_bottom = -53.0
+
+[node name="TextureRect" type="TextureRect" parent="EditControl/ScoreControl" unique_id=551746196]
+modulate = Color(0.33333334, 0.33333334, 0.33333334, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_cl4yy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ScoreLabel" type="Label" parent="EditControl/ScoreControl" unique_id=60566264]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "2"
+label_settings = SubResource("LabelSettings_axdrx")
+horizontal_alignment = 1
+vertical_alignment = 1

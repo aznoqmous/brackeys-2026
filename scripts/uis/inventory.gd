@@ -12,7 +12,10 @@ const INVENTORY_SLOT = preload("uid://dmlxdc460lr65")
 		inventory_size = value
 		build_inventory()
 @export var game_item_resources: Array[ItemResource]
-		
+
+func _ready():
+	build_inventory()
+
 func _process(delta: float) -> void:
 	set_visible(main.game_mode == main.GameMode.EditMode and not main.preview_furniture)
 	

@@ -8,6 +8,7 @@ class_name FurnitureResource
 @export var max_count : int = 0
 @export var sprite: CompressedTexture2D
 @export var size: int = 1 
+@export var score: int = 1
 
 @export_category("Requirement")
 @export var requirements: Array[FurnitureRequirement]

@@ -8,6 +8,8 @@ class_name Furniture
 @onready var count_label: Label = $EditControl/CountLabel
 @export var title_label: Label
 @export var description_label: Label
+@export var edit_control: Control
+@export var score_label: Label
 
 @export var resource: FurnitureResource:
 	set(value):
@@ -40,6 +42,7 @@ var tiles: Array[Tile]
 @export var is_preview := false
 
 var target_position: Vector2
+var saved_grid_position: Vector2i
 
 func _ready():
 	sprite_2d.material.set("shader_parameter/texture_albedo", sprite)
@@ -50,6 +53,7 @@ var last_position : Vector2
 func _process(delta: float) -> void:
 	if not main: return;
 	scale = lerp(scale, Vector2.ONE * 1.1 if tile and tile.hovered and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) else Vector2.ONE, delta * 20.0)
+	edit_control.set_visible(main.game_mode == main.GameMode.EditMode)
 	if Engine.is_editor_hint():
 		if tile and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			#target_position = tile.position
@@ -80,7 +84,7 @@ func load_resource(res: FurnitureResource):
 	name = get_furniture_name(res.type)
 	shadow_sprite.set_visible(res.size == 1)
 	shadow_sprite_2.set_visible(res.size == 2)
-	
+	score_label.text = str(res.score)
 
 # register self to tile
 func apply_position():
@@ -88,9 +92,10 @@ func apply_position():
 	
 	target_position = main.world_to_grid_position(target_position)
 	target_position.y += 1 if resource.size == 2 else 0 # size 2 fix
+	last_position = target_position
 	
 	tile = main.tiles[grid_pos]
-	last_position = target_position
+	saved_grid_position = tile.grid_position
 	
 	for t in tiles:
 		t.current_furniture = null
@@ -99,11 +104,20 @@ func apply_position():
 		tiles.push_back(t)
 		t.current_furniture = self
 
+func apply_grid_position(grid_pos):
+	tile = main.tiles[grid_pos]
+	target_position = tile.position
+	target_position.y += 1 if resource.size == 2 else 0 # size 2 fix
+	last_position = target_position
+	saved_grid_position = grid_pos
+	for t in tiles:
+		t.current_furniture = null
+	tiles.clear()
+	for t in get_tiles(tile, flipped):
+		tiles.push_back(t)
+		t.current_furniture = self
+	
 func update_state()->void:
-	#sprite_2d.material.set(
-		#"shader_parameter/color", 
-		#selected_color if tile and tile.is_selected else default_color
-	#)
 	if is_preview: return sprite_2d.material.set("shader_parameter/color", preview_color)
 	if is_valid: return sprite_2d.material.set("shader_parameter/color", valid_color)
 	sprite_2d.material.set("shader_parameter/color", default_color)

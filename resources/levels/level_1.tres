@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelResource" format=3 uid="uid://bj2ba7kvd83he"]
+
+[ext_resource type="Script" uid="uid://cctdphwqhqla6" path="res://scripts/resources/level_resource.gd" id="1_hndnq"]
+
+[resource]
+script = ExtResource("1_hndnq")
+room_size = Vector2i(4, 4)
+window_positions = Array[Vector2i]([Vector2i(0, 1), Vector2i(1, 0)])
+left_door_position = Vector2i(0, 3)
+right_door_position = Vector2i(3, 0)
+metadata/_custom_type_script = "uid://cctdphwqhqla6"

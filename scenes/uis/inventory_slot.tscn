@@ -5,43 +5,35 @@
 [ext_resource type="Script" uid="uid://ee2gltegm5j6" path="res://scripts/tile_scale_container.gd" id="2_c13kb"]
 [ext_resource type="Texture2D" uid="uid://b11clw0jfwotn" path="res://sprites/nine-patch.png" id="3_s2hqy"]
 [ext_resource type="FontFile" uid="uid://n0g47af416mr" path="res://Gaegu-Bold.ttf" id="4_t1mo2"]
+[ext_resource type="Texture2D" uid="uid://b4abu5iwwau63" path="res://sprites/particle.png" id="6_lkmsf"]
+[ext_resource type="FontFile" uid="uid://buosvnsjv68i6" path="res://sprites/Gaegu-Bold.ttf" id="7_784ro"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_st3ap"]
 font = ExtResource("4_t1mo2")
 font_size = 18
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_qxjg3"]
+font = ExtResource("7_784ro")
+font_size = 24
+
 [node name="InventorySlot" type="Control" unique_id=1937371880]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(78, 78)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_qi2xp")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1243469577]
-visible = false
-z_index = 1
+[node name="Control" type="Container" parent="." unique_id=1987620349]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -13.0
-offset_top = -35.0
-offset_right = -13.0
-offset_bottom = -35.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.24, 1.24)
-texture = ExtResource("1_3ij8l")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Control" type="Container" parent="." unique_id=1987620349]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
-offset_right = 133.0
-offset_bottom = 133.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2_c13kb")
 tile_scale = 0.225
 metadata/_custom_type_script = "uid://ee2gltegm5j6"
@@ -55,6 +47,24 @@ patch_margin_top = 109
 patch_margin_right = 92
 patch_margin_bottom = 90
 
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1243469577]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0000014
+offset_top = -23.000004
+offset_right = -7.0
+offset_bottom = -23.000004
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.24, 1.24)
+texture = ExtResource("1_3ij8l")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Label" type="Label" parent="." unique_id=58020787]
 visible = false
 layout_mode = 1
@@ -63,11 +73,43 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 18.0
-offset_top = -37.0
+offset_top = -26.0
 offset_right = -18.0
-offset_bottom = -15.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Shelf"
 label_settings = SubResource("LabelSettings_st3ap")
 horizontal_alignment = 1
+
+[node name="ScoreControl" type="Control" parent="." unique_id=1885221736]
+visible = false
+anchors_preset = 0
+offset_left = 47.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 33.0
+
+[node name="TextureRect" type="TextureRect" parent="ScoreControl" unique_id=809200989]
+modulate = Color(0.33333334, 0.33333334, 0.33333334, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_lkmsf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ScoreLabel" type="Label" parent="ScoreControl" unique_id=167457981]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "2"
+label_settings = SubResource("LabelSettings_qxjg3")
+horizontal_alignment = 1
+vertical_alignment = 1

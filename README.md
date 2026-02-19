@@ -23,3 +23,8 @@ Thang Shui
 - Gain random furniture
 - Place furnitures in your own room
   - Level up the room (+room size)
+  - Send room data if room score satisfies the current level score
+
+## Level
+- required score
+- room size
