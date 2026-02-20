@@ -39,14 +39,17 @@ enum GameMode {
 		tile_offset = value
 		build()
 
-@export_category("Colors")
-@export var walls_color : Color
-@export var floor_color : Color
-
 var tiles : Dictionary[Vector2i, Tile]
 var furnitures: Array[Furniture]
 var furniture_counts : Dictionary[FurnitureResource, int]
 var selected_tile : Tile
+var player_room_data;
+var hovered_furniture_resource: FurnitureResource
+
+@export_category("Colors")
+@export var walls_color : Color
+@export var floor_color : Color
+
 
 @export_category("Inventory")
 @export var inventory_items : Array[ItemResource]
@@ -80,17 +83,12 @@ var last_path_check := false
 var is_valid := false
 
 @export_category("Furnitures")
-@export var furniture_resources : Array[FurnitureResource]
+@export var reward_control: RewardControl
 
 func _ready():
 	progress_button.pressed.connect(func():
 		if game_mode == GameMode.EditMode:
-			print("SAVE THEN GO TO PUZZLE MOOOODE")
-			var data = save_room()
-			load_room(data)
-			shuffle_room()
-			update_validity()
-			start_puzzle()
+			switch_to_puzzle_mode()
 	)
 	
 	for f in furnitures_container.get_children():
@@ -103,20 +101,29 @@ func _ready():
 		inventory.build_inventory()
 		update_progress()
 		update_validity()
+		update_counts()
 
 func _input(event):
 	if game_mode == GameMode.PuzzleMode:
 		if event.is_action_released("LeftClick"):
 			puzzle_left_click_released()
 			validate_level()
+			if is_valid:
+				game_mode = GameMode.Cinematic
+				await player_animation()
+				reward_control.show_reward(Data.furniture_resources.values().pick_random())
+				
 	if game_mode == GameMode.EditMode:
 		if event.is_action_released("LeftClick"):
-			puzzle_left_click_released()
+			if preview_furniture and preview_furniture.tile:
+				edit_click_tile(preview_furniture.tile)
+			else: puzzle_left_click_released()
 			if not next_level:return
 			if total_score >= next_level.required_score and is_valid:
 				if total_score >= next_level.required_score:
 					current_level_index += 1
 					build()
+					animate_build()
 				update_progress()
 
 	#if event.is_action_pressed("ui_down"):
@@ -171,6 +178,7 @@ func build():
 			
 			for w in current_level.window_positions:
 				if tile.grid_position == w: tile.is_window = true
+			
 	
 	player_canvas.position = get_transformed_position(left_door_position)
 	player.position = get_transformed_position(left_door_position)
@@ -182,7 +190,8 @@ func build():
 			if Engine.is_editor_hint(): f.position = f.target_position
 		else:
 			f.apply_position()
-	
+			
+	update_counts()
 
 func get_transformed_position(pos: Vector2) -> Vector2:
 	return Vector2(
@@ -204,7 +213,7 @@ func get_untransformed_position(world_pos: Vector2) -> Vector2i:
 
 func world_to_grid_position(pos) -> Vector2:
 	return get_transformed_position(get_untransformed_position(pos - container.position)) + container.position
-
+	
 func edit_click_tile(tile: Tile):
 	if preview_furniture:
 		if not is_available_position(tile, preview_furniture): return;
@@ -212,6 +221,7 @@ func edit_click_tile(tile: Tile):
 		preview_furniture.apply_position()
 		preview_furniture = null
 		update_validity()
+		update_counts()
 	else:
 		puzzle_click_tile(tile)
 
@@ -256,6 +266,7 @@ func puzzle_click_tile(tile: Tile):
 				tile.current_furniture.remove()
 				update_validity()
 				update_progress()
+				update_counts()
 				return;
 		selected_tile = tile
 		tile.is_selected = true
@@ -286,7 +297,6 @@ func puzzle_left_click_released():
 	selected_tile.current_furniture.update_state()
 	selected_tile = null
 
-	
 func update_validity():
 	for f in get_furnitures():
 		f.update_validity()
@@ -298,7 +308,7 @@ func create_random_room():
 		f.queue_free()
 	furnitures.clear()
 		
-	for fr in furniture_resources:
+	for fr in Data.furniture_resources.values():
 		var f = FURNITURE.instantiate() as Furniture
 		furnitures_container.add_child(f)
 		f.resource = fr
@@ -349,7 +359,6 @@ func validate_level():
 	furniture_check.text = "✔"
 	for f in get_furnitures():
 		if not f.update_validity():
-			print("furnitures not valid")
 			furniture_check.text = "❌"
 			valid = false
 			break
@@ -362,7 +371,6 @@ func validate_level():
 	path_check.text = "✔"
 	var path = find_path(left_door_position, right_door_position)
 	if not path:
-		print("no valid path found")
 		path_check.text = "❌"
 		valid = false
 		last_path_check = false
@@ -370,7 +378,7 @@ func validate_level():
 		if not last_path_check: path_check_container.scale = Vector2.ONE * 1.2
 		last_path_check = true
 	is_valid = valid
-	update_progress()
+	if game_mode == GameMode.EditMode: update_progress()
 	return valid
 	
 func player_animation():
@@ -384,17 +392,12 @@ func player_animation():
 		get_tree().create_tween().tween_property(player, "position", get_transformed_position(p), 0.25)
 		await get_tree().create_timer(0.30).timeout
 		
-		var coin := COIN.instantiate() as Coin
-		coin.global_position = player.global_position
-		coin.position += Vector2.UP * 100.0
-		add_child(coin)
-		coins += 1
-		update_coins()
-		
-func start_puzzle():
-	game_mode = GameMode.PuzzleMode
-	player.position = get_transformed_position(left_door_position)
-
+		#var coin := COIN.instantiate() as Coin
+		#coin.global_position = player.global_position
+		#coin.position += Vector2.UP * 100.0
+		#add_child(coin)
+		#coins += 1
+		#update_coins()
 
 func get_furnitures():
 	return tiles.values().map(func(tile: Tile): return tile.current_furniture).filter(func(v): return v)
@@ -468,11 +471,16 @@ func find_path(start: Vector2i, goal: Vector2i) -> Array[Vector2i]:
 	return [] # No path found
 
 func update_counts():
+	furniture_counts.clear()
+	
 	for f in furnitures:
 		if not furniture_counts.has(f.resource): furniture_counts[f.resource] = 0
 		furniture_counts[f.resource] += 1
 	for f in furnitures:
 		f.update_count(furniture_counts[f.resource])
+	
+	for iis in inventory.slots:
+		iis.update_state()
 		
 func update_coins():
 	coins_label.text = str(coins)
@@ -480,8 +488,8 @@ func update_coins():
 var preview_furniture : Furniture
 func set_preview_item(ir: ItemResource):
 	var furniture := FURNITURE.instantiate() as Furniture
-	furniture.resource = ir.furniture
 	furnitures_container.add_child(furniture)
+	furniture.resource = ir.furniture
 	preview_furniture = furniture
 	preview_furniture.is_preview = true
 	furnitures.push_back(preview_furniture)
@@ -519,7 +527,6 @@ func save_room():
 		"furnitures": fs
 	}
 	
-	#print(data, furnitures, fs)
 	return JSON.stringify(data)
 	
 func load_room(str_data):
@@ -539,4 +546,33 @@ func load_room(str_data):
 		nf.apply_grid_position(Vector2i(f.grid_position.x, f.grid_position.y))
 		furnitures.push_back(nf)
 		if f.flipped: nf.flip()
-		
+	
+	player.position = get_transformed_position(left_door_position)
+
+func switch_to_edit_mode():
+	game_mode = GameMode.EditMode
+	load_room(player_room_data)
+	update_validity()
+	
+func switch_to_puzzle_mode():
+	player_room_data = save_room() # save to db
+	game_mode = GameMode.PuzzleMode
+	load_room(player_room_data) # load from db
+	shuffle_room()
+	animate_build()
+	update_validity()
+
+func animate_build():
+	var speed = 0.05
+	for t in tiles.values(): t.set_visible(false)
+	for f in furnitures: f.set_visible(false)
+	for t in tiles.values():
+		if not t: continue;
+		await get_tree().create_timer(speed).timeout
+		t.set_visible(true)
+		t.scale = Vector2.ZERO
+	for f in furnitures:
+		if not f: continue;
+		await get_tree().create_timer(0.2).timeout
+		f.set_visible(true)
+		f.position.y -= 200.0

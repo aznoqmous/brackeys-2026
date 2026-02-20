@@ -13,6 +13,7 @@ metadata/_custom_type_script = "uid://xhfsibt0nvwm"
 [resource]
 script = ExtResource("1_x6lil")
 name = "Chair"
+max_count = 4
 sprite = ExtResource("2_3hevi")
 requirements = Array[ExtResource("1_acxcf")]([SubResource("Resource_lwg8a")])
 metadata/_custom_type_script = "uid://dhko0a4d0m02f"

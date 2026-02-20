@@ -5,7 +5,7 @@ class_name FurnitureResource
 @export var name: String
 @export var description: String
 @export var type: FurnitureType
-@export var max_count : int = 0
+@export var max_count : int = 1
 @export var sprite: CompressedTexture2D
 @export var size: int = 1 
 @export var score: int = 1

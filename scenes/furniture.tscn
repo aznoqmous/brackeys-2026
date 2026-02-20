@@ -150,7 +150,7 @@ autowrap_mode = 3
 [node name="DescriptionLabel" type="Label" parent="DescriptionControl/MarginContainer/VBoxContainer" unique_id=1467312811]
 custom_minimum_size = Vector2(91.565, 0)
 layout_mode = 2
-text = "anywhere"
+text = "away from wall"
 label_settings = SubResource("LabelSettings_bew5f")
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -173,7 +173,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="CountLabel" type="Label" parent="EditControl" unique_id=45260069]
-visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0

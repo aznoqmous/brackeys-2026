@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vitbrvm5oa7f"
-path="res://.godot/imported/peer-face-color.png-f5b7e680b8f0d58291a6ae076e881188.ctex"
+uid="uid://dl03fy7orhowq"
+path="res://.godot/imported/star.png-b168e13ae1f9d03011573f475e49f2fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/peer-face-color.png"
-dest_files=["res://.godot/imported/peer-face-color.png-f5b7e680b8f0d58291a6ae076e881188.ctex"]
+source_file="res://sprites/star.png"
+dest_files=["res://.godot/imported/star.png-b168e13ae1f9d03011573f475e49f2fb.ctex"]
 
 [params]
 

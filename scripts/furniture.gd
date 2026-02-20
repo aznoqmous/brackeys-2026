@@ -54,12 +54,14 @@ func _process(delta: float) -> void:
 	if not main: return;
 	scale = lerp(scale, Vector2.ONE * 1.1 if tile and tile.hovered and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) else Vector2.ONE, delta * 20.0)
 	edit_control.set_visible(main.game_mode == main.GameMode.EditMode)
+	count_label.set_visible(resource and main.hovered_furniture_resource == resource)
+	
 	if Engine.is_editor_hint():
 		if tile and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			#target_position = tile.position
 			position = main.world_to_grid_position(position)
 			position.y += 1 if resource.size == 2 else 0 # size 2 fix
-
+	
 		if target_position != last_position:
 			if not main.tiles.has(main.get_untransformed_position(target_position)): return;
 			var target_tile = main.tiles[main.get_untransformed_position(target_position)]
@@ -79,6 +81,10 @@ func load_resource(res: FurnitureResource):
 	if not res or not sprite_2d: return;
 	sprite = res.sprite
 	sprite_2d.material.set("shader_parameter/texture_albedo", sprite)
+	sprite_2d.position = Vector2(10, 0)
+	
+	if res.size == 2: sprite_2d.position = Vector2(43, 21)
+	
 	title_label.text = res.name
 	description_label.text = get_description(res)
 	name = get_furniture_name(res.type)

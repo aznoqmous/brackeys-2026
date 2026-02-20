@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cd07boor00b77"
-path="res://.godot/imported/peer-face.png-f1be4352bf8bb9680bc0506c282e8602.ctex"
+uid="uid://bo6xu7pno7ba2"
+path="res://.godot/imported/tie.png-187170ad5b34ac9d789b1d30dcd7d903.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/peer-face.png"
-dest_files=["res://.godot/imported/peer-face.png-f1be4352bf8bb9680bc0506c282e8602.ctex"]
+source_file="res://sprites/player/accessories/tie.png"
+dest_files=["res://.godot/imported/tie.png-187170ad5b34ac9d789b1d30dcd7d903.ctex"]
 
 [params]
 

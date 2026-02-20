@@ -12,21 +12,26 @@ const INVENTORY_SLOT = preload("uid://dmlxdc460lr65")
 		inventory_size = value
 		build_inventory()
 @export var game_item_resources: Array[ItemResource]
+var slots : Array[InventorySlot]
 
 func _ready():
 	build_inventory()
 
 func _process(delta: float) -> void:
-	set_visible(main.game_mode == main.GameMode.EditMode and not main.preview_furniture)
+	set_visible(main.game_mode == main.GameMode.EditMode)
+	position.x = lerp(position.x, -size.x if main.preview_furniture else 0.0, delta * 5.0)
 	
 func build_inventory():
 	if not inventory_slots_container: return;
 	for i in inventory_slots_container.get_children(): i.queue_free()
+	slots.clear()
 	for i in inventory_size:
 		var slot := INVENTORY_SLOT.instantiate() as InventorySlot
 		inventory_slots_container.add_child(slot)
+		slots.push_back(slot)
 		if items.size() > i: 
 			slot.load_resource(items[i])
+			slot.update_state()
 			slot.clicked.connect(func(ir: ItemResource):
 				main.set_preview_item(ir)
 				items.remove_at(i)

@@ -9,6 +9,20 @@ class_name InventorySlot
 
 var resource : ItemResource
 
+var hovered := false
+func _ready():
+	mouse_entered.connect(func():
+		hovered = true
+		main.hovered_furniture_resource = resource.furniture if (resource and resource.type == ItemResource.ItemType.Furniture) else null
+	)
+	mouse_exited.connect(func():
+		hovered = false
+		main.hovered_furniture_resource = null
+	)
+	
+func _process(delta: float) -> void:
+	texture_rect.scale = lerp(texture_rect.scale, Vector2.ONE * 1.2 if hovered else Vector2.ONE, delta * 10.0)
+
 func load_resource(res: ItemResource):
 	resource = res
 	label.text = res.name
@@ -29,6 +43,22 @@ func empty():
 func _gui_input(event: InputEvent) -> void:
 	if not resource: return;
 	if event is InputEventMouseButton and event.is_pressed():
+		match resource.type:
+			ItemResource.ItemType.Furniture:
+				var count = main.furniture_counts.get(resource.furniture)
+				count = count if count else 0
+				if count >= resource.furniture.max_count:
+					return
 		clicked.emit(resource)
-		
+			
+func update_state():
+	modulate = Color.WHITE
+	if not resource: return;
+	match resource.type:
+		ItemResource.ItemType.Furniture:
+			var count = main.furniture_counts.get(resource.furniture)
+			count = count if count else 0
+			if count >= resource.furniture.max_count:
+				modulate = Color.DIM_GRAY
+			
 signal clicked(res: ItemResource)

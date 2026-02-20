@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c12swvwtdpxvo"
-path="res://.godot/imported/peer-legs.png-b779d7b324e829eb59a13adbb5e035c7.ctex"
+uid="uid://bt2hm366dlotc"
+path="res://.godot/imported/peer-banana.png-d744887bae0b31497fadd9567afab2d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/peer-legs.png"
-dest_files=["res://.godot/imported/peer-legs.png-b779d7b324e829eb59a13adbb5e035c7.ctex"]
+source_file="res://sprites/player/peer-banana.png"
+dest_files=["res://.godot/imported/peer-banana.png-d744887bae0b31497fadd9567afab2d2.ctex"]
 
 [params]
 

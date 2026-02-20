@@ -8,6 +8,6 @@
 script = ExtResource("2_em3ld")
 name = "TV"
 type = 4
-max_count = 1
+max_count = 2
 sprite = ExtResource("3_em3ld")
 metadata/_custom_type_script = "uid://dhko0a4d0m02f"

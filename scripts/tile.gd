@@ -68,5 +68,6 @@ func _process(delta: float) -> void:
 	wall_left.material.set("shader_parameter/color", main.walls_color)
 	wall_right.material.set("shader_parameter/color", main.walls_color.darkened(0.2))
 	inner_sprite.modulate = main.walls_color.darkened(0.2)
-	pass
+	scale = lerp(scale, Vector2.ONE, delta * 5.0)
+
 signal clicked()
