@@ -24,7 +24,7 @@ extends Area2D
 @export var is_wall: bool :
 	set(value):
 		is_wall = value
-		wall_sprites.set_visible(value)
+		wall_sprites.set_visible(grid_position.x == 0 or grid_position.y == 0)
 		
 @export var is_window: bool :
 	set(value):
@@ -35,7 +35,10 @@ extends Area2D
 	set(value):
 		is_door_opened = value
 		door_opened_sprite.set_visible(value)
-		
+
+var is_lit := false
+@export var lit_color: Color
+
 var default_color: Color
 var hovered := false
 var grid_position : Vector2i
@@ -49,12 +52,10 @@ var is_selected:= false
 func _ready() -> void:
 	default_color = inner_sprite.modulate
 	mouse_entered.connect(func():
-		inner_sprite.modulate = Color.WHITE
 		hovered = true
 	)
 	
 	mouse_exited.connect(func():
-		inner_sprite.modulate = default_color
 		hovered = false
 	)
 	debug_label.text = str(grid_position)
@@ -65,9 +66,12 @@ func _input(event: InputEvent) -> void:
 		
 func _process(delta: float) -> void:
 	if not main: return;
-	wall_left.material.set("shader_parameter/color", main.walls_color)
-	wall_right.material.set("shader_parameter/color", main.walls_color.darkened(0.2))
-	inner_sprite.modulate = main.walls_color.darkened(0.2)
+	#wall_left.material.set("shader_parameter/color", main.walls_color)
+	#wall_right.material.set("shader_parameter/color", main.walls_color.darkened(0.2))
+	#inner_sprite.modulate = main.walls_color.darkened(0.2)
 	scale = lerp(scale, Vector2.ONE, delta * 5.0)
-
+	inner_sprite.modulate = default_color
+	if hovered: inner_sprite.modulate = Color.WHITE
+	if is_lit: inner_sprite.modulate = lit_color
+	
 signal clicked()

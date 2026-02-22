@@ -2,6 +2,9 @@
 extends Node2D
 class_name Furniture
 
+@export_tool_button("Flip") var flip_btn = flip
+
+
 @onready var main: Main = get_tree().edited_scene_root if Engine.is_editor_hint() else $/root/Main
 #@onready var main: Main = $/root/Main
 @onready var description_control: Control = $DescriptionControl
@@ -43,6 +46,8 @@ var tiles: Array[Tile]
 
 var target_position: Vector2
 var saved_grid_position: Vector2i
+
+
 
 func _ready():
 	sprite_2d.material.set("shader_parameter/texture_albedo", sprite)
@@ -101,6 +106,9 @@ func apply_position():
 	target_position.y += 1 if resource.size == 2 else 0 # size 2 fix
 	last_position = target_position
 	
+	if not main.tiles.get(grid_pos):
+		print("AZDHIAZD")
+		return;
 	tile = main.tiles[grid_pos]
 	saved_grid_position = tile.grid_position
 	
@@ -112,7 +120,8 @@ func apply_position():
 		t.current_furniture = self
 
 func apply_grid_position(grid_pos):
-	tile = main.tiles[grid_pos]
+	tile = main.tiles.get(grid_pos)
+	if not tile: return;
 	target_position = tile.position
 	target_position.y += 1 if resource.size == 2 else 0 # size 2 fix
 	last_position = target_position
@@ -149,6 +158,10 @@ func get_description(res: FurnitureResource):
 				texts.push_back("away from door")
 			FurnitureRequirement.Requirement.NotNearWindow:
 				texts.push_back("away from window")
+			FurnitureRequirement.Requirement.Lit:
+				texts.push_back("must be lit")
+			FurnitureRequirement.Requirement.NotLit:
+				texts.push_back("must not be lit")
 	if not res.requirements.size(): texts.push_back("anywhere")
 	return "\n".join(texts)
 
@@ -167,12 +180,14 @@ func flip() -> bool:
 
 func get_furniture_name(type: FurnitureResource.FurnitureType):
 	match type:
+		FurnitureResource.FurnitureType.Any: return "something"
 		FurnitureResource.FurnitureType.Chair: return "chair"
 		FurnitureResource.FurnitureType.Table: return "table"
 		FurnitureResource.FurnitureType.Plant: return "plant"
 		FurnitureResource.FurnitureType.Shelf: return "shelf"
 		FurnitureResource.FurnitureType.Bed: return "bed"
 		FurnitureResource.FurnitureType.TV: return "tv"
+		FurnitureResource.FurnitureType.Lamp: return "lamp"
 	return "Furniture"
 
 func update_validity() -> bool:
@@ -190,13 +205,13 @@ func is_valid_requirement(req: FurnitureRequirement, t: Tile) -> bool:
 		FurnitureRequirement.Requirement.NearFurniture:
 			var check = false
 			for f in main.get_neighbor_furnitures(t.grid_position):
-				if f.resource.type == req.furniture:
+				if req.furniture == FurnitureResource.FurnitureType.Any or f.resource.type == req.furniture:
 					check = true
 					break;
 			if not check: return false
 		FurnitureRequirement.Requirement.NotNearFurniture:
 			for f in main.get_neighbor_furnitures(t.grid_position):
-				if f.resource.type == req.furniture:
+				if req.furniture == FurnitureResource.FurnitureType.Any or f.resource.type == req.furniture:
 					return false
 		FurnitureRequirement.Requirement.NearWall:
 			return t.is_wall
@@ -210,10 +225,15 @@ func is_valid_requirement(req: FurnitureRequirement, t: Tile) -> bool:
 			return not t.is_door
 		FurnitureRequirement.Requirement.NotNearWindow:
 			return not t.is_window
+		FurnitureRequirement.Requirement.Lit:
+			return t.is_lit
+		FurnitureRequirement.Requirement.NotLit:
+			return not t.is_lit
+
 	return true
 
 # returns owned tiles in placed on said tile
-func get_tiles(ti: Tile, is_flipped:= true) -> Array[Tile]: 
+func get_tiles(ti: Tile, is_flipped:= true) -> Array[Tile]:
 	var direction = Vector2i.RIGHT if not is_flipped else Vector2i.DOWN
 	#print(resource)
 	var ts : Array[Tile]
@@ -221,11 +241,14 @@ func get_tiles(ti: Tile, is_flipped:= true) -> Array[Tile]:
 	for i in resource.size:
 		var t = main.tiles.get(grid_pos + direction * i) as Tile
 		if not t: continue;
+		if t.grid_position == main.left_door_position: continue;
 		ts.push_back(t)
 	return ts
 
 func remove():
-	for t in get_tiles(tile, flipped): t.current_furniture = null
+	for t in tiles: 
+		if t: t.current_furniture = null
+	if tile: for t in get_tiles(tile, flipped): t.current_furniture = null
 	queue_free()
 
 func update_count(value):

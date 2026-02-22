@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FurnitureResource" format=3 uid="uid://8ipdvmhf7qqi"]
 
-[ext_resource type="Script" uid="uid://xhfsibt0nvwm" path="res://scripts/furniture_requirement.gd" id="1_t6evw"]
+[ext_resource type="Script" uid="uid://xhfsibt0nvwm" path="res://scripts/resources/furniture_requirement.gd" id="1_t6evw"]
 [ext_resource type="Texture2D" uid="uid://cufv3l4cvo6s0" path="res://sprites/furnitures/table.png" id="2_omo5v"]
 [ext_resource type="Script" uid="uid://dhko0a4d0m02f" path="res://scripts/resources/furniture_resource.gd" id="2_vvunx"]
 
@@ -12,7 +12,7 @@ metadata/_custom_type_script = "uid://xhfsibt0nvwm"
 [resource]
 script = ExtResource("2_vvunx")
 name = "Table"
-type = 1
+type = 2
 max_count = 2
 sprite = ExtResource("2_omo5v")
 score = 2

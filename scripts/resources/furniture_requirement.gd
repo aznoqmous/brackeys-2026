@@ -20,4 +20,7 @@ enum Requirement {
 	NotNearWall,
 	NotNearDoor,
 	NotNearWindow,
+	
+	Lit,
+	NotLit
 }

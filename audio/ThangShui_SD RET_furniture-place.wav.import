@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://y2qmjq3fq22m"
+path="res://.godot/imported/ThangShui_SD RET_furniture-place.wav-8df0cc8fcb7110b4290a306e47c9bf4a.sample"
+
+[deps]
+
+source_file="res://audio/ThangShui_SD RET_furniture-place.wav"
+dest_files=["res://.godot/imported/ThangShui_SD RET_furniture-place.wav-8df0cc8fcb7110b4290a306e47c9bf4a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

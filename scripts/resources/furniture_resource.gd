@@ -14,10 +14,12 @@ class_name FurnitureResource
 @export var requirements: Array[FurnitureRequirement]
 	
 enum FurnitureType {
+	Any,
 	Chair,
 	Table,
 	Plant,
 	Shelf,
 	TV,
-	Bed
+	Bed,
+	Lamp
 }

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="StoryLevelResource" format=3 uid="uid://b2kdpvkxxqyr3"]
+
+[ext_resource type="Resource" uid="uid://d0xld2te7dxh7" path="res://resources/levels/story_4_4_1.tres" id="1_7hsqk"]
+[ext_resource type="Script" uid="uid://daec6cfaarc6f" path="res://scripts/resources/story_level.gd" id="2_fbq07"]
+
+[resource]
+script = ExtResource("2_fbq07")
+level = ExtResource("1_7hsqk")
+data = "{\"furnitures\":[{\"flipped\":false,\"grid_position\":{\"x\":2,\"y\":3},\"name\":\"Lamp\"},{\"flipped\":false,\"grid_position\":{\"x\":1,\"y\":0},\"name\":\"Plant\"},{\"flipped\":false,\"grid_position\":{\"x\":2,\"y\":1},\"name\":\"Plant\"},{\"flipped\":false,\"grid_position\":{\"x\":0,\"y\":1},\"name\":\"Table\"},{\"flipped\":true,\"grid_position\":{\"x\":1,\"y\":2},\"name\":\"Bed\"},{\"flipped\":true,\"grid_position\":{\"x\":3,\"y\":3},\"name\":\"Chair\"},{\"flipped\":true,\"grid_position\":{\"x\":3,\"y\":0},\"name\":\"Chair\"}]}"

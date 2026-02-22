@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dcoshbuvlm5mp"
+path="res://.godot/imported/ThangShui_SD RET_button_click.wav-42593c88db47781097c42e889d7b2e9d.sample"
+
+[deps]
+
+source_file="res://audio/ThangShui_SD RET_button_click.wav"
+dest_files=["res://.godot/imported/ThangShui_SD RET_button_click.wav-42593c88db47781097c42e889d7b2e9d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

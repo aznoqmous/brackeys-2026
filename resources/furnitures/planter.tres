@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="FurnitureResource" format=3 uid="uid://dyllmueqbvm2t"]
+
+[ext_resource type="Script" uid="uid://xhfsibt0nvwm" path="res://scripts/resources/furniture_requirement.gd" id="1_gltst"]
+[ext_resource type="Script" uid="uid://dhko0a4d0m02f" path="res://scripts/resources/furniture_resource.gd" id="2_7eq77"]
+[ext_resource type="Texture2D" uid="uid://mp8rjefcpb44" path="res://sprites/furnitures/planter.png" id="3_gltst"]
+
+[sub_resource type="Resource" id="Resource_c58cr"]
+script = ExtResource("1_gltst")
+requirement = 9
+metadata/_custom_type_script = "uid://xhfsibt0nvwm"
+
+[resource]
+script = ExtResource("2_7eq77")
+name = "Planter"
+type = 3
+sprite = ExtResource("3_gltst")
+size = 2
+score = 4
+requirements = Array[ExtResource("1_gltst")]([SubResource("Resource_c58cr")])
+metadata/_custom_type_script = "uid://dhko0a4d0m02f"

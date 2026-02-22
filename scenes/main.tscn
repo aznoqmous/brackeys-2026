@@ -1,23 +1,29 @@
 [gd_scene format=3 uid="uid://ied1f8r2pef8"]
 
 [ext_resource type="Script" uid="uid://bvb23f5st7o0l" path="res://main.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://daec6cfaarc6f" path="res://scripts/resources/story_level.gd" id="2_0loja"]
 [ext_resource type="PackedScene" uid="uid://cbcu0aholnfmm" path="res://scenes/player.tscn" id="2_85g3d"]
 [ext_resource type="Script" uid="uid://cgt7c7b72ukrj" path="res://scripts/resources/item_resource.gd" id="2_gqmmt"]
+[ext_resource type="Resource" uid="uid://c7x2hfm74ku0s" path="res://resources/story/story-0.tres" id="3_ids8r"]
 [ext_resource type="Resource" uid="uid://cbs2q2lqlgpsg" path="res://resources/items/chair.tres" id="3_yc10j"]
 [ext_resource type="Resource" uid="uid://dvn3do5lgj4ps" path="res://resources/items/plant.tres" id="4_2wyq8"]
+[ext_resource type="Resource" uid="uid://bw5eq6vr1ovem" path="res://resources/story/story-1.tres" id="4_dnhof"]
 [ext_resource type="Resource" uid="uid://do8pxnae1qlob" path="res://resources/items/shelf.tres" id="4_y6deb"]
+[ext_resource type="Resource" uid="uid://b3w7nk0vbsulx" path="res://resources/story/story-2.tres" id="5_1v6qk"]
 [ext_resource type="Resource" uid="uid://bonocppwahuaq" path="res://resources/items/table.tres" id="5_vxglm"]
+[ext_resource type="Resource" uid="uid://bhvhjwu6hd5pe" path="res://resources/story/story-3.tres" id="6_augu2"]
 [ext_resource type="Script" uid="uid://cctdphwqhqla6" path="res://scripts/resources/level_resource.gd" id="7_5q0nq"]
+[ext_resource type="Resource" uid="uid://b2kdpvkxxqyr3" path="res://resources/story/story-4.tres" id="7_tm6hj"]
 [ext_resource type="Resource" uid="uid://bj2ba7kvd83he" path="res://resources/levels/level_1.tres" id="8_dgi5k"]
-[ext_resource type="PackedScene" uid="uid://bt5jkavy5b063" path="res://scenes/furniture.tscn" id="9_85g3d"]
-[ext_resource type="Resource" uid="uid://b17f37vkk17l7" path="res://resources/furnitures/chair.tres" id="9_eb6dy"]
+[ext_resource type="Resource" uid="uid://nd5pes0ddsv4" path="res://resources/story/story-5.tres" id="8_kf5aa"]
 [ext_resource type="Resource" uid="uid://lxp65mnr5mx" path="res://resources/levels/level_2.tres" id="9_j8jky"]
-[ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furnitures/chair.png" id="9_ya4ey"]
+[ext_resource type="Resource" uid="uid://bxw1shymte7m5" path="res://resources/levels/story_0.tres" id="9_kmb1v"]
 [ext_resource type="Resource" uid="uid://0rpkwng2p2i8" path="res://resources/levels/level_3.tres" id="10_dgi5k"]
-[ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="10_trceg"]
+[ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://shaders/wobble.gdshader" id="10_trceg"]
 [ext_resource type="Texture2D" uid="uid://008dek1vy7ia" path="res://sprites/canvas.png" id="11_a8y0u"]
 [ext_resource type="Script" uid="uid://ccf62ey38eegj" path="res://scripts/uis/inventory.gd" id="11_pm3ni"]
 [ext_resource type="Texture2D" uid="uid://crj472xqe4c1s" path="res://sprites/FlowMap.png" id="12_jkv2x"]
+[ext_resource type="Resource" uid="uid://d1vstorj3ewo2" path="res://resources/levels/story_4_5_1.tres" id="13_2cjbq"]
 [ext_resource type="Texture2D" uid="uid://ccu73j3mwkvis" path="res://sprites/coin.png" id="13_jbj1t"]
 [ext_resource type="FontFile" uid="uid://n0g47af416mr" path="res://Gaegu-Bold.ttf" id="14_a8y0u"]
 [ext_resource type="Resource" uid="uid://dny05aaapfdpd" path="res://resources/items/bed.tres" id="15_yq6so"]
@@ -33,6 +39,25 @@
 [ext_resource type="Texture2D" uid="uid://dgj37flwk5iwc" path="res://sprites/parcel.png" id="22_5poiv"]
 [ext_resource type="Script" uid="uid://b75nfqr4hp1ng" path="res://scripts/uis/reward_control.gd" id="23_5he1u"]
 [ext_resource type="Texture2D" uid="uid://ckcuxde7qd5v7" path="res://sprites/furnitures/bed.png" id="25_c6pm6"]
+[ext_resource type="Script" uid="uid://bpqrv8xvrktgt" path="res://scripts/furniture.gd" id="32_c6pm6"]
+[ext_resource type="PackedScene" uid="uid://bt5jkavy5b063" path="res://scenes/furniture.tscn" id="32_dgi5k"]
+[ext_resource type="Resource" uid="uid://b17f37vkk17l7" path="res://resources/furnitures/chair.tres" id="33_kmb1v"]
+[ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furnitures/chair.png" id="34_fuf3a"]
+[ext_resource type="Resource" uid="uid://cdlorjnvm638q" path="res://resources/furnitures/plant.tres" id="35_pibwh"]
+[ext_resource type="Resource" uid="uid://cl0vxd30c7pcn" path="res://resources/furnitures/lamp.tres" id="36_5he1u"]
+[ext_resource type="Texture2D" uid="uid://dojtpumlg4e1" path="res://sprites/furnitures/plant.png" id="36_c6pm6"]
+[ext_resource type="Resource" uid="uid://8ipdvmhf7qqi" path="res://resources/furnitures/table.tres" id="37_5he1u"]
+[ext_resource type="Texture2D" uid="uid://ns2tmm4m8s4w" path="res://sprites/furnitures/lamp.png" id="37_5poiv"]
+[ext_resource type="Resource" uid="uid://dyllmueqbvm2t" path="res://resources/furnitures/planter.tres" id="37_chjal"]
+[ext_resource type="Texture2D" uid="uid://cufv3l4cvo6s0" path="res://sprites/furnitures/table.png" id="38_5poiv"]
+[ext_resource type="Texture2D" uid="uid://mp8rjefcpb44" path="res://sprites/furnitures/planter.png" id="38_cjqg0"]
+[ext_resource type="AudioStream" uid="uid://y2qmjq3fq22m" path="res://audio/ThangShui_SD RET_furniture-place.wav" id="43_txyw0"]
+[ext_resource type="AudioStream" uid="uid://d38jciv4g0yws" path="res://audio/ThangShui_SD RET_furniture_move.wav" id="44_vc5cj"]
+[ext_resource type="AudioStream" uid="uid://cy8qfi1oban5e" path="res://audio/ThangShui_SD RET_furniture_remove.wav" id="45_nvyfr"]
+[ext_resource type="AudioStream" uid="uid://cimlc07s3xcun" path="res://audio/ThangShui_SD RET_furniture_rotate.wav" id="46_ty1g6"]
+[ext_resource type="AudioStream" uid="uid://cgrfp0d4c0klq" path="res://audio/ThangShui_SD RET_player_move.wav" id="47_vc5cj"]
+[ext_resource type="Shader" uid="uid://coqdrb6wnk7kx" path="res://shaders/canvas_wobbly_shader.gdshader" id="50_bjg73"]
+[ext_resource type="Texture2D" uid="uid://bi5oah34vswan" path="res://sprites/title.png" id="55_ids8r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2cjbq"]
 shader = ExtResource("16_pibwh")
@@ -260,30 +285,79 @@ shader_parameter/displacement_steps = 4
 shader_parameter/displacement_power = 2.0
 shader_parameter/displacement_size = 5.0
 
-[node name="Main" type="Node2D" unique_id=513818981 node_paths=PackedStringArray("coins_label", "inventory", "edit_control", "progress_button", "level_label", "progress_label", "level_slider", "furniture_check", "path_check", "furniture_check_container", "path_check_container", "reward_control")]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vc5cj"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("43_txyw0")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_txyw0"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("44_vc5cj")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ty1g6"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("45_nvyfr")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_j2jfr"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("46_ty1g6")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nvyfr"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("47_vc5cj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ids8r"]
+shader = ExtResource("50_bjg73")
+shader_parameter/texture_albedo = ExtResource("55_ids8r")
+shader_parameter/texture_flow_map = ExtResource("12_jkv2x")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/displacement_steps = 4
+shader_parameter/displacement_power = 0.34
+shader_parameter/displacement_size = 5.17
+
+[node name="Main" type="Node2D" unique_id=513818981 node_paths=PackedStringArray("name_control", "room_name_label", "place_audio", "move_audio", "remove_audio", "rotate_audio", "player_move_audio", "inventory", "edit_control", "progress_button", "level_label", "progress_label", "level_slider", "validity_check_control", "furniture_check", "path_check", "furniture_check_container", "path_check_container", "play_button", "play_online_button", "back_to_menu_button", "title_layer", "reward_control")]
 script = ExtResource("1_o5qli")
-coins_label = NodePath("CanvasLayer/Control/Control/CoinsLabel")
-game_mode = 1
+game_mode = 4
+name_control = NodePath("CanvasLayer/Control/NameControl")
+room_name_label = NodePath("CanvasLayer/Control/NameControl/RoomNameLabel")
+story_levels = Array[ExtResource("2_0loja")]([ExtResource("3_ids8r"), ExtResource("4_dnhof"), ExtResource("5_1v6qk"), ExtResource("6_augu2"), ExtResource("7_tm6hj"), ExtResource("8_kf5aa")])
+place_audio = NodePath("PlaceAudio")
+move_audio = NodePath("MoveAudio")
+remove_audio = NodePath("RemoveAudio")
+rotate_audio = NodePath("RotateAudio")
+player_move_audio = NodePath("PlayerMoveAudio")
 left_door_position = Vector2i(0, 3)
-right_door_position = Vector2i(3, 0)
+right_door_position = Vector2i(4, 0)
 tile_size = Vector2(162, 78)
-room_size = Vector2i(4, 4)
+room_size = Vector2i(3, 3)
 tile_offset = Vector2(0, 39)
 walls_color = Color(0.62890625, 0.62890625, 0.62890625, 1)
 floor_color = Color(0.7, 0.48999998, 0.48999998, 1)
-inventory_items = Array[ExtResource("2_gqmmt")]([ExtResource("5_vxglm"), ExtResource("4_2wyq8"), ExtResource("3_yc10j"), ExtResource("15_yq6so"), ExtResource("17_tel4y")])
 inventory = NodePath("CanvasLayer/EditControl/Inventory")
+inventory_items = Array[ExtResource("2_gqmmt")]([ExtResource("5_vxglm"), ExtResource("4_2wyq8"), ExtResource("3_yc10j"), ExtResource("15_yq6so"), ExtResource("17_tel4y")])
 edit_control = NodePath("CanvasLayer/EditControl")
 progress_button = NodePath("CanvasLayer/EditControl/ProgressButton")
-levels = Array[ExtResource("7_5q0nq")]([ExtResource("8_dgi5k"), ExtResource("9_j8jky"), ExtResource("10_dgi5k")])
+levels = Array[ExtResource("7_5q0nq")]([ExtResource("9_kmb1v"), ExtResource("8_dgi5k"), ExtResource("9_j8jky"), ExtResource("10_dgi5k")])
+current_level_index = 1
+current_level = ExtResource("13_2cjbq")
 level_label = NodePath("CanvasLayer/EditControl/ScoreControl/LevelLabel")
 progress_label = NodePath("CanvasLayer/EditControl/ScoreControl/ProgressLabel")
 level_slider = NodePath("CanvasLayer/EditControl/ScoreControl/LevelSlider")
+validity_check_control = NodePath("CanvasLayer/Control/ValidityCheckControl")
 furniture_check = NodePath("CanvasLayer/Control/ValidityCheckControl/VBoxContainer/FurnitureCheckContainer/FurnitureCheck")
 path_check = NodePath("CanvasLayer/Control/ValidityCheckControl/VBoxContainer/PathCheckContainer/PathCheck")
 furniture_check_container = NodePath("CanvasLayer/Control/ValidityCheckControl/VBoxContainer/FurnitureCheckContainer")
 path_check_container = NodePath("CanvasLayer/Control/ValidityCheckControl/VBoxContainer/PathCheckContainer")
+play_button = NodePath("TitleLayer/Control/PlayButton")
+play_online_button = NodePath("TitleLayer/Control/PlayOnline")
+back_to_menu_button = NodePath("CanvasLayer/BackButton")
+title_layer = NodePath("TitleLayer")
 reward_control = NodePath("CanvasLayer/Control/RewardControl")
+story_level = 6
 
 [node name="Background" type="CanvasLayer" parent="." unique_id=1518065275]
 layer = -1
@@ -310,9 +384,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 
 [node name="ValidityCheckControl" type="Control" parent="CanvasLayer/Control" unique_id=185665941]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -346,7 +421,7 @@ pivot_offset = Vector2(176, 11)
 
 [node name="FurnitureCheck" type="Label" parent="CanvasLayer/Control/ValidityCheckControl/VBoxContainer/FurnitureCheckContainer" unique_id=389193775]
 layout_mode = 2
-text = "✔"
+text = "❌"
 label_settings = SubResource("LabelSettings_dgi5k")
 horizontal_alignment = 1
 
@@ -412,24 +487,26 @@ label_settings = SubResource("LabelSettings_jbj1t")
 horizontal_alignment = 2
 
 [node name="NameControl" type="Control" parent="CanvasLayer/Control" unique_id=2114191765]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_top = 25.0
-offset_right = 20.0
-offset_bottom = 65.0
-grow_horizontal = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/NameControl" unique_id=1299786299]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "aznoqmous's flat"
+mouse_filter = 1
+
+[node name="RoomNameLabel" type="Label" parent="CanvasLayer/Control/NameControl" unique_id=1299786299]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_top = 83.0
+offset_right = 50.0
+offset_bottom = 118.0
+grow_horizontal = 2
+text = "Room 1"
 label_settings = SubResource("LabelSettings_kmb1v")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -606,6 +683,7 @@ autoplay = &"idle"
 next/show = &"idle"
 
 [node name="EditControl" type="Control" parent="CanvasLayer" unique_id=376108424]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -615,6 +693,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="ProgressButton" type="Button" parent="CanvasLayer/EditControl" unique_id=968818802]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -627,6 +706,7 @@ offset_right = -85.0
 offset_bottom = -45.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_default_cursor_shape = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("20_dgi5k")
 theme_override_font_sizes/font_size = 28
@@ -663,11 +743,15 @@ patch_margin_right = 100
 patch_margin_bottom = 100
 
 [node name="Inventory" type="Control" parent="CanvasLayer/EditControl" unique_id=381616656 node_paths=PackedStringArray("inventory_slots_container")]
+visible = false
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
+offset_top = 75.0
 offset_right = 322.0
+offset_bottom = -75.0
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("11_pm3ni")
 inventory_slots_container = NodePath("InventorySlotsContainer")
 inventory_size = 12
@@ -708,7 +792,7 @@ offset_top = -6.0
 offset_right = 48.0
 offset_bottom = 27.0
 grow_horizontal = 2
-text = "Level 1"
+text = "Tutorial"
 label_settings = SubResource("LabelSettings_j8jky")
 horizontal_alignment = 1
 
@@ -722,7 +806,7 @@ offset_top = 21.0
 offset_right = 48.0
 offset_bottom = 54.0
 grow_horizontal = 2
-text = "2/15"
+text = "4/5"
 label_settings = SubResource("LabelSettings_5q0nq")
 horizontal_alignment = 1
 
@@ -743,7 +827,7 @@ fill = NodePath("FillContainer/Fill")
 fill_container = NodePath("FillContainer")
 background_color = Color(0.5019608, 0.5019608, 0.5019608, 1)
 fill_color = Color(0.82421875, 0.82421875, 0.82421875, 1)
-value = 1.0
+value = 0.8
 
 [node name="Background" type="Container" parent="CanvasLayer/EditControl/ScoreControl/LevelSlider" unique_id=2016681972]
 modulate = Color(0.5019608, 0.5019608, 0.5019608, 1)
@@ -782,6 +866,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 46.19998
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("20_5q0nq")
@@ -789,7 +874,7 @@ tile_scale = 0.275
 metadata/_custom_type_script = "uid://ee2gltegm5j6"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/EditControl/ScoreControl/LevelSlider/FillContainer/Fill" unique_id=149289810]
-modulate = Color(0.82421875, 0.82421875, 0.82421875, 1)
+modulate = Color(0.7597672, 0.7597672, 0.7597672, 1)
 layout_mode = 2
 texture = ExtResource("21_dgi5k")
 region_rect = Rect2(0, 0, 311, 316)
@@ -797,6 +882,50 @@ patch_margin_left = 101
 patch_margin_top = 100
 patch_margin_right = 90
 patch_margin_bottom = 108
+
+[node name="BackButton" type="Button" parent="CanvasLayer" unique_id=1889916378]
+visible = false
+offset_left = 27.0
+offset_top = 29.0
+offset_right = 233.0
+offset_bottom = 60.0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("20_dgi5k")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5q0nq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dgi5k")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j8jky")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kmb1v")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fuf3a")
+text = "< BACK TO MENU"
+alignment = 0
+
+[node name="TileScaleContainer" type="Container" parent="CanvasLayer/BackButton" unique_id=1096813343]
+visible = false
+modulate = Color(0.5019608, 0.5019608, 0.5019608, 1)
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -29.627907
+offset_top = -13.0
+offset_right = 29.627907
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("20_5q0nq")
+tile_scale = 0.16
+metadata/_custom_type_script = "uid://ee2gltegm5j6"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/BackButton/TileScaleContainer" unique_id=1808170501]
+layout_mode = 2
+texture = ExtResource("21_dgi5k")
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
 
 [node name="World" type="Node2D" parent="." unique_id=1338986842]
 position = Vector2(578, 277)
@@ -834,20 +963,304 @@ texture = ExtResource("11_a8y0u")
 [node name="Container" type="Node2D" parent="World" unique_id=2058291274]
 
 [node name="Camera2D" type="Camera2D" parent="World" unique_id=1923788347]
+position = Vector2(0, -39)
 
 [node name="ObjectsContainer" type="Node2D" parent="World" unique_id=1191763259]
 y_sort_enabled = true
 
 [node name="Player" parent="World/ObjectsContainer" unique_id=1966255495 instance=ExtResource("2_85g3d")]
+visible = false
 position = Vector2(-243, 117)
 
 [node name="FurnituresContainer" type="Node2D" parent="World/ObjectsContainer" unique_id=2135184305]
 y_sort_enabled = true
 
-[node name="table" parent="World/ObjectsContainer/FurnituresContainer" unique_id=2049549159 instance=ExtResource("9_85g3d")]
-position = Vector2(85, 117)
+[node name="lamp" type="Node2D" parent="World/ObjectsContainer/FurnituresContainer" unique_id=2049549159 node_paths=PackedStringArray("title_label", "description_label", "edit_control", "score_label", "sprites_container", "sprite_2d", "shadow_sprite", "shadow_sprite_2") instance=ExtResource("32_dgi5k")]
+position = Vector2(-78, 195)
+script = ExtResource("32_c6pm6")
+title_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/TitleLabel")
+description_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/DescriptionLabel")
+edit_control = NodePath("EditControl")
+score_label = NodePath("EditControl/ScoreControl/ScoreLabel")
+resource = ExtResource("36_5he1u")
+sprites_container = NodePath("SpritesContainer")
+sprite_2d = NodePath("SpritesContainer/Sprite2D")
+sprite = ExtResource("37_5poiv")
+shadow_sprite = NodePath("SpritesContainer/ShadowSprite")
+shadow_sprite_2 = NodePath("SpritesContainer/ShadowSprite2")
+selected_color = Color(1, 1, 1, 1)
+default_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
+valid_color = Color(1, 1, 1, 1)
+preview_color = Color(1, 1, 1, 0.47058824)
+is_valid = true
 
-[node name="chair" parent="World/ObjectsContainer/FurnituresContainer" unique_id=217050659 instance=ExtResource("9_85g3d")]
+[node name="plant" type="Node2D" parent="World/ObjectsContainer/FurnituresContainer" unique_id=111275593 node_paths=PackedStringArray("title_label", "description_label", "edit_control", "score_label", "sprites_container", "sprite_2d", "shadow_sprite", "shadow_sprite_2") instance=ExtResource("32_dgi5k")]
+position = Vector2(-79.5, 118)
+script = ExtResource("32_c6pm6")
+title_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/TitleLabel")
+description_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/DescriptionLabel")
+edit_control = NodePath("EditControl")
+score_label = NodePath("EditControl/ScoreControl/ScoreLabel")
+resource = ExtResource("37_chjal")
+sprites_container = NodePath("SpritesContainer")
+sprite_2d = NodePath("SpritesContainer/Sprite2D")
+sprite = ExtResource("38_cjqg0")
+shadow_sprite = NodePath("SpritesContainer/ShadowSprite")
+shadow_sprite_2 = NodePath("SpritesContainer/ShadowSprite2")
+selected_color = Color(1, 1, 1, 1)
+default_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
+valid_color = Color(1, 1, 1, 1)
+preview_color = Color(1, 1, 1, 0.47058824)
+is_valid = true
+
+[node name="plant2" type="Node2D" parent="World/ObjectsContainer/FurnituresContainer" unique_id=767714579 node_paths=PackedStringArray("title_label", "description_label", "edit_control", "score_label", "sprites_container", "sprite_2d", "shadow_sprite", "shadow_sprite_2") instance=ExtResource("32_dgi5k")]
 position = Vector2(-81, 39)
-resource = ExtResource("9_eb6dy")
-sprite = ExtResource("9_ya4ey")
+script = ExtResource("32_c6pm6")
+title_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/TitleLabel")
+description_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/DescriptionLabel")
+edit_control = NodePath("EditControl")
+score_label = NodePath("EditControl/ScoreControl/ScoreLabel")
+resource = ExtResource("35_pibwh")
+sprites_container = NodePath("SpritesContainer")
+sprite_2d = NodePath("SpritesContainer/Sprite2D")
+sprite = ExtResource("36_c6pm6")
+shadow_sprite = NodePath("SpritesContainer/ShadowSprite")
+shadow_sprite_2 = NodePath("SpritesContainer/ShadowSprite2")
+selected_color = Color(1, 1, 1, 1)
+default_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
+valid_color = Color(1, 1, 1, 1)
+preview_color = Color(1, 1, 1, 0.47058824)
+
+[node name="plant3" type="Node2D" parent="World/ObjectsContainer/FurnituresContainer" unique_id=454674895 node_paths=PackedStringArray("title_label", "description_label", "edit_control", "score_label", "sprites_container", "sprite_2d", "shadow_sprite", "shadow_sprite_2") instance=ExtResource("32_dgi5k")]
+position = Vector2(166.5, 157)
+script = ExtResource("32_c6pm6")
+title_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/TitleLabel")
+description_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/DescriptionLabel")
+edit_control = NodePath("EditControl")
+score_label = NodePath("EditControl/ScoreControl/ScoreLabel")
+resource = ExtResource("37_chjal")
+sprites_container = NodePath("SpritesContainer")
+sprite_2d = NodePath("SpritesContainer/Sprite2D")
+sprite = ExtResource("38_cjqg0")
+shadow_sprite = NodePath("SpritesContainer/ShadowSprite")
+shadow_sprite_2 = NodePath("SpritesContainer/ShadowSprite2")
+selected_color = Color(1, 1, 1, 1)
+default_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
+valid_color = Color(1, 1, 1, 1)
+preview_color = Color(1, 1, 1, 0.47058824)
+is_valid = true
+
+[node name="chair" type="Node2D" parent="World/ObjectsContainer/FurnituresContainer" unique_id=1414199475 node_paths=PackedStringArray("title_label", "description_label", "edit_control", "score_label", "sprites_container", "sprite_2d", "shadow_sprite", "shadow_sprite_2") instance=ExtResource("32_dgi5k")]
+position = Vector2(4.5, 234)
+script = ExtResource("32_c6pm6")
+title_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/TitleLabel")
+description_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/DescriptionLabel")
+edit_control = NodePath("EditControl")
+score_label = NodePath("EditControl/ScoreControl/ScoreLabel")
+resource = ExtResource("33_kmb1v")
+sprites_container = NodePath("SpritesContainer")
+sprite_2d = NodePath("SpritesContainer/Sprite2D")
+sprite = ExtResource("34_fuf3a")
+shadow_sprite = NodePath("SpritesContainer/ShadowSprite")
+shadow_sprite_2 = NodePath("SpritesContainer/ShadowSprite2")
+selected_color = Color(1, 1, 1, 1)
+default_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
+valid_color = Color(1, 1, 1, 1)
+preview_color = Color(1, 1, 1, 0.47058824)
+
+[node name="table" type="Node2D" parent="World/ObjectsContainer/FurnituresContainer" unique_id=373335301 node_paths=PackedStringArray("title_label", "description_label", "edit_control", "score_label", "sprites_container", "sprite_2d", "shadow_sprite", "shadow_sprite_2") instance=ExtResource("32_dgi5k")]
+position = Vector2(84, 117)
+script = ExtResource("32_c6pm6")
+title_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/TitleLabel")
+description_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/DescriptionLabel")
+edit_control = NodePath("EditControl")
+score_label = NodePath("EditControl/ScoreControl/ScoreLabel")
+resource = ExtResource("37_5he1u")
+sprites_container = NodePath("SpritesContainer")
+sprite_2d = NodePath("SpritesContainer/Sprite2D")
+sprite = ExtResource("38_5poiv")
+shadow_sprite = NodePath("SpritesContainer/ShadowSprite")
+shadow_sprite_2 = NodePath("SpritesContainer/ShadowSprite2")
+selected_color = Color(1, 1, 1, 1)
+default_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
+valid_color = Color(1, 1, 1, 1)
+preview_color = Color(1, 1, 1, 0.47058824)
+
+[node name="chair2" type="Node2D" parent="World/ObjectsContainer/FurnituresContainer" unique_id=706810189 node_paths=PackedStringArray("title_label", "description_label", "edit_control", "score_label", "sprites_container", "sprite_2d", "shadow_sprite", "shadow_sprite_2") instance=ExtResource("32_dgi5k")]
+position = Vector2(168, 234)
+script = ExtResource("32_c6pm6")
+title_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/TitleLabel")
+description_label = NodePath("DescriptionControl/MarginContainer/VBoxContainer/DescriptionLabel")
+edit_control = NodePath("EditControl")
+score_label = NodePath("EditControl/ScoreControl/ScoreLabel")
+resource = ExtResource("33_kmb1v")
+sprites_container = NodePath("SpritesContainer")
+sprite_2d = NodePath("SpritesContainer/Sprite2D")
+sprite = ExtResource("34_fuf3a")
+shadow_sprite = NodePath("SpritesContainer/ShadowSprite")
+shadow_sprite_2 = NodePath("SpritesContainer/ShadowSprite2")
+selected_color = Color(1, 1, 1, 1)
+default_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
+valid_color = Color(1, 1, 1, 1)
+preview_color = Color(1, 1, 1, 0.47058824)
+
+[node name="PlaceAudio" type="AudioStreamPlayer2D" parent="." unique_id=2056346058]
+stream = SubResource("AudioStreamRandomizer_vc5cj")
+bus = &"SFX"
+
+[node name="MoveAudio" type="AudioStreamPlayer2D" parent="." unique_id=527597725]
+stream = SubResource("AudioStreamRandomizer_txyw0")
+max_polyphony = 5
+bus = &"SFX"
+
+[node name="RemoveAudio" type="AudioStreamPlayer2D" parent="." unique_id=925592819]
+stream = SubResource("AudioStreamRandomizer_ty1g6")
+bus = &"SFX"
+
+[node name="RotateAudio" type="AudioStreamPlayer2D" parent="." unique_id=1052727257]
+stream = SubResource("AudioStreamRandomizer_j2jfr")
+bus = &"SFX"
+
+[node name="PlayerMoveAudio" type="AudioStreamPlayer2D" parent="." unique_id=397510401]
+stream = SubResource("AudioStreamRandomizer_nvyfr")
+bus = &"SFX"
+
+[node name="TitleLayer" type="CanvasLayer" parent="." unique_id=472839468]
+
+[node name="Control" type="Control" parent="TitleLayer" unique_id=1700758198]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="TitleLayer/Control" unique_id=368738164]
+visible = false
+material = SubResource("ShaderMaterial_2cjbq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.5
+offset_top = -0.5
+offset_right = -0.5
+offset_bottom = -0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("17_c6pm6")
+
+[node name="TextureRect2" type="TextureRect" parent="TitleLayer/Control" unique_id=1790295653]
+material = SubResource("ShaderMaterial_ids8r")
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -646.0
+offset_top = 121.0
+offset_right = -272.0
+offset_bottom = 311.0
+grow_horizontal = 0
+texture = ExtResource("55_ids8r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PlayButton" type="Button" parent="TitleLayer/Control" unique_id=1424664281]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -168.0
+offset_top = 192.0
+offset_right = -24.0
+offset_bottom = 223.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("20_dgi5k")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5q0nq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dgi5k")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j8jky")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kmb1v")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fuf3a")
+text = "PUZZLES"
+
+[node name="TileScaleContainer" type="Container" parent="TitleLayer/Control/PlayButton" unique_id=359080499]
+modulate = Color(0.5019608, 0.5019608, 0.5019608, 1)
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -29.627907
+offset_top = -13.0
+offset_right = 29.627907
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("20_5q0nq")
+tile_scale = 0.16
+metadata/_custom_type_script = "uid://ee2gltegm5j6"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TitleLayer/Control/PlayButton/TileScaleContainer" unique_id=50576182]
+modulate = Color(0.2627451, 0.2627451, 0.2627451, 1)
+layout_mode = 2
+texture = ExtResource("21_dgi5k")
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="PlayOnline" type="Button" parent="TitleLayer/Control" unique_id=37057115]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 33.0
+offset_top = 192.0
+offset_right = 177.0
+offset_bottom = 223.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("20_dgi5k")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5q0nq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dgi5k")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j8jky")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kmb1v")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fuf3a")
+text = "ONLINE"
+
+[node name="TileScaleContainer" type="Container" parent="TitleLayer/Control/PlayOnline" unique_id=1067301197]
+modulate = Color(0.5019608, 0.5019608, 0.5019608, 1)
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -29.627907
+offset_top = -13.0
+offset_right = 29.627907
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("20_5q0nq")
+tile_scale = 0.16
+metadata/_custom_type_script = "uid://ee2gltegm5j6"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TitleLayer/Control/PlayOnline/TileScaleContainer" unique_id=1499271555]
+modulate = Color(0.7411765, 0.7411765, 0.7411765, 1)
+layout_mode = 2
+texture = ExtResource("21_dgi5k")
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100

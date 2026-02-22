@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://8ipdvmhf7qqi" path="res://resources/furnitures/table.tres" id="2_ngo83"]
 [ext_resource type="Texture2D" uid="uid://cufv3l4cvo6s0" path="res://sprites/furnitures/table.png" id="3_bew5f"]
 [ext_resource type="Texture2D" uid="uid://dalfyro5mto6e" path="res://sprites/shadow.png" id="3_upk6m"]
-[ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://scenes/wobble.gdshader" id="4_sugg3"]
+[ext_resource type="Shader" uid="uid://qjm6tlg3d4rd" path="res://shaders/wobble.gdshader" id="4_sugg3"]
 [ext_resource type="Texture2D" uid="uid://crj472xqe4c1s" path="res://sprites/FlowMap.png" id="5_161hf"]
 [ext_resource type="Texture2D" uid="uid://bpst3jprjdgnt" path="res://sprites/furnitures/chair.png" id="5_dh8sm"]
 [ext_resource type="Texture2D" uid="uid://d1qmmjk31qimu" path="res://sprites/shadow-2.png" id="5_sugg3"]

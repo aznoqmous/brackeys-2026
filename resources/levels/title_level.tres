@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="LevelResource" format=3 uid="uid://c7sbx72p25ber"]
+
+[ext_resource type="Script" uid="uid://cctdphwqhqla6" path="res://scripts/resources/level_resource.gd" id="1_rxs78"]
+
+[resource]
+script = ExtResource("1_rxs78")
+room_size = Vector2i(32, 32)
+metadata/_custom_type_script = "uid://cctdphwqhqla6"

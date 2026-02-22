@@ -21,6 +21,7 @@ font_size = 24
 custom_minimum_size = Vector2(78, 78)
 layout_mode = 3
 anchors_preset = 0
+mouse_default_cursor_shape = 2
 script = ExtResource("1_qi2xp")
 
 [node name="Control" type="Container" parent="." unique_id=1987620349]

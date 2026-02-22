@@ -1,20 +1,20 @@
 [gd_resource type="Resource" script_class="FurnitureResource" format=3 uid="uid://cdlorjnvm638q"]
 
-[ext_resource type="Script" uid="uid://xhfsibt0nvwm" path="res://scripts/furniture_requirement.gd" id="1_11i4u"]
+[ext_resource type="Script" uid="uid://xhfsibt0nvwm" path="res://scripts/resources/furniture_requirement.gd" id="1_64idf"]
 [ext_resource type="Script" uid="uid://dhko0a4d0m02f" path="res://scripts/resources/furniture_resource.gd" id="1_vaswm"]
 [ext_resource type="Texture2D" uid="uid://dojtpumlg4e1" path="res://sprites/furnitures/plant.png" id="2_vaswm"]
 
 [sub_resource type="Resource" id="Resource_b6yq4"]
-script = ExtResource("1_11i4u")
-requirement = 5
+script = ExtResource("1_64idf")
+requirement = 9
 metadata/_custom_type_script = "uid://xhfsibt0nvwm"
 
 [resource]
 script = ExtResource("1_vaswm")
 name = "Plant"
-type = 2
+type = 3
 max_count = 2
 sprite = ExtResource("2_vaswm")
 score = 2
-requirements = Array[ExtResource("1_11i4u")]([SubResource("Resource_b6yq4")])
+requirements = Array[ExtResource("1_64idf")]([SubResource("Resource_b6yq4")])
 metadata/_custom_type_script = "uid://dhko0a4d0m02f"

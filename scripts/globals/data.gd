@@ -1,12 +1,21 @@
+@tool
 extends Node
 
 var furniture_resources: Dictionary[String, FurnitureResource]
 
-func get_furniture_resource_by_name(name):
+func _ready():
+	for fr in load_resources("res://resources/furnitures"):
+		furniture_resources[fr.name] = fr
+		
+func get_furniture_resource_by_name(n):
 	if furniture_resources.size() <= 0:
 		for fr in load_resources("res://resources/furnitures"):
 			furniture_resources[fr.name] = fr
-	return furniture_resources.get(name)
+	return furniture_resources.get(n)
+
+
+
+	
 
 func load_resources(path: String) -> Array[FurnitureResource]:
 	var result: Array[FurnitureResource] = []

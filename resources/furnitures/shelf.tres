@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FurnitureResource" format=3 uid="uid://ggspwnr42ukk"]
 
-[ext_resource type="Script" uid="uid://xhfsibt0nvwm" path="res://scripts/furniture_requirement.gd" id="1_fqcbd"]
+[ext_resource type="Script" uid="uid://xhfsibt0nvwm" path="res://scripts/resources/furniture_requirement.gd" id="1_fqcbd"]
 [ext_resource type="Script" uid="uid://dhko0a4d0m02f" path="res://scripts/resources/furniture_resource.gd" id="1_ib3pw"]
 [ext_resource type="Texture2D" uid="uid://th3udd0g8u08" path="res://sprites/furnitures/shelf.png" id="2_ib3pw"]
 
@@ -12,7 +12,7 @@ metadata/_custom_type_script = "uid://xhfsibt0nvwm"
 [resource]
 script = ExtResource("1_ib3pw")
 name = "Shelf"
-type = 3
+type = 4
 max_count = 3
 sprite = ExtResource("2_ib3pw")
 score = 2

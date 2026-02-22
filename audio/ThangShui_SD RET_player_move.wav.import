@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cgrfp0d4c0klq"
+path="res://.godot/imported/ThangShui_SD RET_player_move.wav-0312312491062119062c5f5c5c2c11f2.sample"
+
+[deps]
+
+source_file="res://audio/ThangShui_SD RET_player_move.wav"
+dest_files=["res://.godot/imported/ThangShui_SD RET_player_move.wav-0312312491062119062c5f5c5c2c11f2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
